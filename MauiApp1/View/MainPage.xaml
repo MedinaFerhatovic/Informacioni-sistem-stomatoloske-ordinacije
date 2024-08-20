@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.MainPage"
+             xmlns:viewModels="clr-namespace:MauiApp1.ViewModels">
+    <StackLayout Padding="10">
+        <Grid Padding="30"
+              RowDefinitions="Auto, Auto, Auto, Auto, *"
+              ColumnDefinitions="*"
+              Margin="0,30,0,0" >
+            <Image Grid.Row="0"
+                   Source="logo2.png" 
+                   WidthRequest="150" 
+                   HeightRequest="150"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Frame Grid.Row="1"
+                   BackgroundColor="Transparent" 
+                   BorderColor="LightBlue" 
+                   Margin="0,45,0,0" 
+                   Padding="10" 
+                   CornerRadius="8"
+                   HorizontalOptions="FillAndExpand">
+                <Entry Text="{Binding LoginEmail}" 
+                       Placeholder="Email" 
+                       TextColor="#000"
+                       PlaceholderColor="#154360"
+                       FontSize="Medium"/>
+            </Frame>
+
+            <Frame Grid.Row="2"
+                   BackgroundColor="Transparent" 
+                   BorderColor="LightBlue" 
+                   CornerRadius="8"
+                   Margin="0,15,0,0" 
+                   Padding="10" 
+                   HorizontalOptions="FillAndExpand">
+                <Entry Text="{Binding LoginPassword}" 
+                       Placeholder="Lozinka" 
+                       IsPassword="True" 
+                       TextColor="#000"
+                       PlaceholderColor="#154360"
+                       FontSize="Medium"/>
+            </Frame>
+            <StackLayout Grid.Row="3" 
+                         Orientation="Horizontal"
+                         Margin="0,10,0,0"
+                         HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="StartAndExpand">
+                    <CheckBox IsChecked="{Binding RememberMe}" />
+                    <Label Text="Zapamti me"
+                           VerticalOptions="Center"
+                           Margin="0,0,0,0"/>
+                </StackLayout>
+                <Label Text="Zaboravljena lozinka?"
+                       TextColor="Blue"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       HorizontalOptions="End">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToForgotPasswordCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+            <Label Grid.Row="4"
+                   Text="{Binding ErrorMessage}" 
+                   TextColor="Red"
+                   HorizontalOptions="Center"
+                   Margin="0,10,0,0"/>
+            <Button Grid.Row="5"
+                    Text="Prijavi se" 
+                    Command="{Binding LoginCommand}"
+                    BackgroundColor="#154360"
+                    TextColor="White"
+                    CornerRadius="25"
+                    BorderWidth="1.5"
+                    FontAttributes="Bold"
+                    FontSize="Large"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"
+                    HeightRequest="50"
+                    Margin="0,0,0,0" />
+            <StackLayout Grid.Row="6"
+                         Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Margin="0,130,0,0">
+                <Label Text="Nemate račun? " />
+                <Label Text="Registrujte se"
+                       TextColor="Blue"
+                       FontAttributes="Bold">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToRegisterCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </Grid>
+    </StackLayout>
+</ContentPage>

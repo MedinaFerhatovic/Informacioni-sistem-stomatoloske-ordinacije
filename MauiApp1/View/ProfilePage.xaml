@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:MauiApp1.ViewModels"
+             x:Class="MauiApp1.View.ProfilePage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Menu" IconImageSource="menu_icon.png" Order="Primary" Priority="0" Clicked="OnMenuIconClicked" />
+    </ContentPage.ToolbarItems>
+    <StackLayout Padding="10">
+        <Label Grid.Row="0"
+           Text="{Binding User.FirstName, StringFormat='Dobrodošli, {0}'}" 
+           FontSize="Large" 
+           TextColor="#336699"
+           HorizontalOptions="FillAndExpand"
+           Padding="10"
+           FontAttributes="Bold"
+           Margin="0,10,0,0" />
+        <Grid Padding="30"
+          RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, *"
+          ColumnDefinitions="*"
+          Margin="0,30,0,0">
+            <Image Grid.Row="0"
+               Source="logo2.png" 
+               WidthRequest="140" 
+               HeightRequest="140"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+            <Frame Grid.Row="1"
+               BackgroundColor="Transparent" 
+               BorderColor="LightBlue" 
+               Margin="0,15,0,0" 
+               Padding="10" 
+               CornerRadius="8"
+               HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Ime:" 
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           TextColor="#336699"
+                           VerticalOptions="Center"/>
+                    <Label Text="{Binding User.FirstName}" 
+                           FontSize="Medium" 
+                           TextColor="#000"
+                           VerticalOptions="Center"
+                           Margin="10,0,0,0"
+                           FontAttributes="Italic"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Grid.Row="2"
+                   BackgroundColor="Transparent" 
+                   BorderColor="LightBlue" 
+                   Margin="0,15,0,0" 
+                   Padding="10" 
+                   CornerRadius="8"
+                   HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Prezime:" 
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           TextColor="#336699"
+                           VerticalOptions="Center"/>
+                    <Label Text="{Binding User.LastName}" 
+                           FontSize="Medium" 
+                           TextColor="#000"
+                           VerticalOptions="Center"
+                           Margin="10,0,0,0"
+                           FontAttributes="Italic"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Grid.Row="3"
+                   BackgroundColor="Transparent" 
+                   BorderColor="LightBlue" 
+                   Margin="0,15,0,0" 
+                   Padding="10" 
+                   CornerRadius="8"
+                   HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Email:" 
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           TextColor="#336699"
+                           VerticalOptions="Center"/>
+                    <Label Text="{Binding User.Email}" 
+                           FontSize="Medium" 
+                           TextColor="#000"
+                           VerticalOptions="Center"
+                           Margin="10,0,0,0"
+                           FontAttributes="Italic"/>
+                </StackLayout>
+            </Frame>
+            <Button Grid.Row="4"
+                        Text="Promijenite lozinku" 
+                        Command="{Binding NavigateToPasswordResetCommand}"
+                        BackgroundColor="#336699"
+                        TextColor="White"
+                        BorderWidth="1.5"
+                        FontAttributes="Bold"
+                        FontSize="Large"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        HeightRequest="50"
+                        Margin="0,30,0,0"/>
+
+            <Label Grid.Row ="5" 
+                   Text="Vratite se na početnu stranicu"
+                   TextColor="Blue"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Margin="0,100,0,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToHomeCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+
+        </Grid>
+    </StackLayout>
+
+</ContentPage>

@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="MauiApp1.View.FlyoutPage1"
+            xmlns:views="clr-namespace:MauiApp1.View"
+            xmlns:viewModels="clr-namespace:MauiApp1.ViewModels">
+
+    <FlyoutPage.Flyout>
+        <ContentPage Title="Menu">
+            <StackLayout Padding="10">
+                <Image Source="logo2.png" HeightRequest="100" WidthRequest="100" 
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Margin="0,50,0,50"/>
+               
+                <Frame BackgroundColor="WhiteSmoke" Padding="8" CornerRadius="10" HasShadow="False" Margin="0,0,0,10" BorderColor="Transparent">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ImageButton Source="user.png"
+                                     HeightRequest="30"
+                                     WidthRequest="30"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Start"
+                                     BackgroundColor="Transparent"
+                                     Command="{Binding NavigateToProfileCommand}"
+                                     Grid.Column="0"/>
+                        <Button Text="Moj profil"
+                               VerticalOptions="Center"
+                               HorizontalOptions="FillAndExpand"
+                               BackgroundColor="WhiteSmoke"
+                               TextColor="Black"
+                               FontSize="Medium"
+                               FontAttributes="Bold"
+                               Margin="0,0,0,0"
+                               Command="{Binding NavigateToProfileCommand}"
+                               Grid.Column="1"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="WhiteSmoke" Padding="8" CornerRadius="10" HasShadow="False" Margin="0,0,0,10" BorderColor="Transparent">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ImageButton Source="dental_record.png"
+                                     HeightRequest="30"
+                                     WidthRequest="30"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Start"
+                                     BackgroundColor="Transparent"
+                                     Command="{Binding NavigateToDentalRecordCommand}"
+                                     Grid.Column="0"/>
+                        <Button Text="Zdravstveni karton"
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                BackgroundColor="WhiteSmoke"
+                                TextColor="Black"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                Margin="0,0,0,0"
+                                Command="{Binding NavigateToDentalRecordCommand}"
+                                Grid.Column="1"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="WhiteSmoke" Padding="8" CornerRadius="10" HasShadow="False" Margin="0,0,0,10" BorderColor="Transparent">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ImageButton Source="home.png"
+                                     HeightRequest="30"
+                                     WidthRequest="30"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Start"
+                                     BackgroundColor="Transparent"
+                                     Command="{Binding NavigateToHomePageCommand}"
+                                     Grid.Column="0"/>
+                        <Button Text="Početna stranica"
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                BackgroundColor="WhiteSmoke"
+                                TextColor="Black"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                Margin="0,0,0,0"
+                                Command="{Binding NavigateToHomePageCommand}"
+                                Grid.Column="1"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="WhiteSmoke" Padding="8" CornerRadius="10" HasShadow="False" Margin="0,250,0,10" BorderColor="Transparent">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ImageButton Source="logout.png"
+                                     HeightRequest="30"
+                                     WidthRequest="30"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Start"
+                                     BackgroundColor="Transparent"
+                                     Command="{Binding LogoutCommand}"
+                                     Grid.Column="0"/>
+                        <Button Text="Odjava"
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                BackgroundColor="WhiteSmoke"
+                                TextColor="Black"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                Margin="0,0,0,0"
+                                Command="{Binding LogoutCommand}"
+                                Grid.Column="1"/>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+        </ContentPage>
+    </FlyoutPage.Flyout>
+
+    <FlyoutPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <views:HomePage/>
+            </x:Arguments>
+        </NavigationPage>
+    </FlyoutPage.Detail>
+</FlyoutPage>
