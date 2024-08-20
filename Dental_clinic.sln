@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dental_clinic.API", "Dental_clinic.API\Dental_clinic.API.csproj", "{5DF2C9EF-ABA0-48AD-AC0B-895F05EC74FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dental_clinic.Data", "Dental_clinic.Data\Dental_clinic.Data.csproj", "{7B9B87FA-EA75-4BC4-ACCF-2D59B9C07CC2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileApp", "..\DentalClinic-MobileApp\MauiApp1\MobileApp.csproj", "{936A2B46-CD17-48B0-A5FA-38C28D0ED1C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DF2C9EF-ABA0-48AD-AC0B-895F05EC74FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DF2C9EF-ABA0-48AD-AC0B-895F05EC74FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DF2C9EF-ABA0-48AD-AC0B-895F05EC74FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DF2C9EF-ABA0-48AD-AC0B-895F05EC74FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B9B87FA-EA75-4BC4-ACCF-2D59B9C07CC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B9B87FA-EA75-4BC4-ACCF-2D59B9C07CC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B9B87FA-EA75-4BC4-ACCF-2D59B9C07CC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B9B87FA-EA75-4BC4-ACCF-2D59B9C07CC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{936A2B46-CD17-48B0-A5FA-38C28D0ED1C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{936A2B46-CD17-48B0-A5FA-38C28D0ED1C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{936A2B46-CD17-48B0-A5FA-38C28D0ED1C8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{936A2B46-CD17-48B0-A5FA-38C28D0ED1C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{936A2B46-CD17-48B0-A5FA-38C28D0ED1C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{936A2B46-CD17-48B0-A5FA-38C28D0ED1C8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED83DC44-681C-413C-BC78-3BECCA553BBB}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,14 @@
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\bin\Debug\net8.0\Dental_clinic.Data.deps.json
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\bin\Debug\net8.0\Dental_clinic.Data.runtimeconfig.json
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\bin\Debug\net8.0\Dental_clinic.Data.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\bin\Debug\net8.0\Dental_clinic.Data.pdb
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\Dental_clinic.Data.csproj.AssemblyReference.cache
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\Dental_clinic.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\Dental_clinic.Data.AssemblyInfoInputs.cache
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\Dental_clinic.Data.AssemblyInfo.cs
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\Dental_clinic.Data.csproj.CoreCompileInputs.cache
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\Dental_clinic.Data.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\refint\Dental_clinic.Data.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\Dental_clinic.Data.pdb
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\Dental_clinic.Data.genruntimeconfig.cache
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\ref\Dental_clinic.Data.dll
