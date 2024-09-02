@@ -1,0 +1,38 @@
+<div class="header">
+
+<div class="page" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <div style="flex: 1;">
+      <label for="name">Naziv ordinacije:</label>
+         <input class="input-frame"id="name" [(ngModel)]="newOrdination.name" name="name" required style="width: 100%;" />
+    </div>
+  
+    <div style="flex: 1;">
+      <label for="phoneNumber">Telefon:</label>
+        <input class="input-frame" id="phoneNumber" [(ngModel)]="newOrdination.phoneNumber" name="phoneNumber" style="width: 100%;" />
+    </div>
+  
+    <div style="flex: 1;">
+      <label for="ownerEmail">Email vlasnika:</label>
+        <input class="input-frame" id="ownerEmail" [(ngModel)]="newOrdination.ownerEmail" name="ownerEmail" required style="width: 100%;" />
+    </div>
+  
+    <div style="flex: 1;">
+      <label for="address">Adresa:</label>
+        <input class="input-frame" id="address" [(ngModel)]="newOrdination.address" name="address" required style="width: 100%;" />
+    </div>
+  
+    <div style="flex: 1;">
+      <button type="submit" class="button">Dodaj ordinaciju</button>
+    </div>
+  </div>
+  
+  <hr />
+  
+  <div *ngFor="let ordination of ordinations" style="margin-top: 20px;">
+    <p><strong>Naziv:</strong> {{ ordination.name }}</p>
+    <p><strong>Telefon:</strong> {{ ordination.phoneNumber }}</p>
+    <p><strong>Vlasnik:</strong> {{ ordination.owner}}</p>
+    <p><strong>Adresa:</strong> {{ ordination.address }}</p>
+    <hr />
+  </div>
+</div>

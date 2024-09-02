@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="image-side">
+    <img src="/logo2.png" alt="Logo">
+  </div>
+  <div class="login-side">
+    <form [formGroup]="LogInForm" (ngSubmit)="loginUser()">
+      <h1 class="form-title">Pristup sistemu</h1>
+      
+      <mat-form-field appearance="outline" class="mat-input-element">
+           <div class="input-frame">
+              <input formControlName="email" type="email" id="email" placeholder="Email" class="email-input">
+            </div>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="mat-input-element">
+         <div class="input-frame">
+            <input formControlName="password" type="password" id="password" placeholder="Lozinka" class="password-input">
+         </div>
+      </mat-form-field>
+
+      <div class="options">
+        <div class="remember-me">
+          <input formControlName="rememberMe" type="checkbox" id="rememberMe" class="remember-checkbox">
+          <label class="remember-label">Zapamti me</label>
+        </div>
+        <a [routerLink]="['/forgotPassword']" class="forgot-password">Zaboravljena lozinka?</a>
+      </div>
+      
+      <button class="login-button" type="submit">Prijavi se</button>
+
+    </form>
+  </div>
+</div>
