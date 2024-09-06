@@ -11,6 +11,8 @@ export class AdminComponent implements OnInit {
 
   constructor() { }
 
+  isSidebarCollapsed = false;
+
   ngOnInit(): void {
   }
 
@@ -21,6 +23,15 @@ export class AdminComponent implements OnInit {
   panels: string[] = ["ordinations", "users", "bookings"]
 
   checkOrd(panel: string) {
+    if (this.activeTab == panel) {
+      return true
+    }
+
+    return false;
+
+  }
+
+  checkUser(panel: string) {
     if (this.activeTab == panel) {
       return true
     }
@@ -53,5 +64,17 @@ export class AdminComponent implements OnInit {
     localStorage.removeItem("user");
     window.location.href = "login";
   }
+
+  toggleSidebar() {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  
+    if (!this.isSidebarCollapsed) {
+      // Ako je sidebar otvoren, provjeri da li je treba dodati bilo kakvu logiku za ponovno prikazivanje
+      setTimeout(() => {
+        // Na primjer, osvježi elemente u sidebaru ako je potrebno
+      }, 300); // Vrijeme koje odgovara CSS tranziciji (0.3s)
+    }
+  }
+  
 
 }

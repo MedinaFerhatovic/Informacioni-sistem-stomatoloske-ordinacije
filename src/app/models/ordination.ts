@@ -1,5 +1,5 @@
 export interface Ordination {
-    ordinationID: number;
+    ordinationId: number;
     name: string;
     locationID: number;
     phoneNumber: string;

@@ -14,18 +14,32 @@
 
 }
 
-.invisible-side-bar{
-  margin-right: 300px;
-}
 .side-bar{
     width: 300px;
     height: 100%;
     background-color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
+    transition: width 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
     
-    
+}
+.side-bar.collapsed {
+  width: 60px;
+  opacity: 0;
+  pointer-events: none; 
+}
+
+.toggle-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle-button img {
+  width: 30px;
+  height: 30px;
 }
 
 .image-side {
@@ -154,6 +168,7 @@
 .content{
   width: 100%;
   z-index: 1;
+  margin-left: 30px;
 }
 
 .spline{

@@ -30,4 +30,33 @@ interface ApiResponse {
         const body: ResetPasswordRequest = { email, newPassword };
         return this.http.post<ApiResponse>(url, body);
     }
+
+    getUserById(id: number): Observable<User> {
+      const url = `${environment.apiUrl}/users/${id}`;
+      return this.http.get<User>(url);
+    }
+
+    getUsers(): Observable<User[]> {
+      const url = `${environment.apiUrl}/users`;
+      return this.http.get<User[]>(url);
+    }
+
+    updateUser(user: User): Observable<void> {
+      const url = `${environment.apiUrl}/users`;
+      return this.http.put<void>(url, user);
+    }
+
+    deleteUser(id: number): Observable<void> {
+      const url = `${environment.apiUrl}/users/${id}`;
+      return this.http.delete<void>(url);
+    }
+
+    addUser(user: User): Observable<User> {
+      const url = `${environment.apiUrl}/users`;
+      return this.http.post<User>(url, user);
+    }
+  
+  
+  
+  
 }

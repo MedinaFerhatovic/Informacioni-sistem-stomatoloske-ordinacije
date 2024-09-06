@@ -1,6 +1,7 @@
-import { Ordination } from "../../../../models/ordination";
-import { OrdinationService, OrdinationDto } from "../../../../services/ordination.service";
 import { Component, OnInit } from '@angular/core';
+import { OrdinationService, OrdinationDto } from '../../../../services/ordination.service';
+import { Ordination } from '../../../../models/ordination';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-ordination',
@@ -8,51 +9,149 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ordination.component.css']
 })
 export class OrdinationComponent implements OnInit {
-
-  newOrdination: OrdinationDto = {
-    name: '',
-    phoneNumber: '',
-    ownerEmail: '',
-    address: ''
-  };
-
-  constructor(private ordinationService: OrdinationService) { }
-
   ordinations: Ordination[] = [];
+  selectedOrdination: any = {};
+  showForm: boolean = false;
+  editingOrdination = false;
+  ownerEmail: string = '';
+  newOrdination: any = {};
+  showDetails: boolean = false;
+
+  constructor(private ordinationService: OrdinationService, private userService: UserService) {}
 
   ngOnInit(): void {
-    this.loadOrdinances();
+    this.loadOrdinations();
   }
 
-  activeTab: String = "users"
+  loadOrdinations(): void {
+    this.ordinationService.getOrdinations().subscribe(
+      (data) => {
+        console.log('Podaci ordinacije:', data);
+        this.ordinations = data;
+      },
+      (error) => console.error('Greška pri dobijanju ordinacija:', error)
+    );
+  }
 
-  panels: string[] = ["ordinations", "users", "bookings"]
+  closeForm(): void {
+    this.showForm = false;
+  }
 
-  checkOrd(panel: string) {
-    if (this.activeTab == panel) {
-      return true
+  getOwnerEmail(ownerId: number): void {
+    this.userService.getUserById(ownerId).subscribe(
+      user => {
+        this.ownerEmail = user.email;
+      },
+      error => console.error('Greška pri dobijanju emaila vlasnika:', error)
+    );
+  }
+
+  addOrdination(ordinationDto : OrdinationDto): void {
+    this.ordinationService.addOrdination(ordinationDto).subscribe(
+      (data) => {
+        this.ordinations.push(data);
+        this.closeForm();
+      },
+      (error) => console.error('Greška pri dodavanju ordinacije:', error)
+    );
+  }
+
+  openForm(ordination?: Ordination): void {
+    if (ordination) {
+      this.editingOrdination = true;
+      this.newOrdination = {
+        ordinationId: ordination.ordinationId,
+        name: ordination.name,
+        phoneNumber: ordination.phoneNumber,
+        ownerEmail: this.ownerEmail, // Korištenje emaila vlasnika
+        address: ordination.address
+      };
+      this.getOwnerEmail(ordination.owner); // Dohvati email vlasnika za postojeću ordinaciju
+    } else {
+      this.editingOrdination = false;
+      this.newOrdination = {
+        name: '',
+        phoneNumber: '',
+        ownerEmail: '',
+        address: ''
+      };
+      this.ownerEmail = ''; // Resetuj email vlasnika
     }
-
-    return false;
-
+    this.showForm = true;
   }
 
-  openPanel(panel: string) {
-    this.activeTab = panel;
+  showDeleteConfirmation: boolean = false;
+  ordinationToDelete: number | null = null;
+
+  openDeleteConfirmation(ordinationId: number): void {
+    this.showDeleteConfirmation = true;
+    this.ordinationToDelete = ordinationId;
   }
 
-  addOrdination(ordinationDto: OrdinationDto): void {
-    this.ordinationService.addOrdination(ordinationDto).subscribe((response: Ordination) => {
-      this.ordinations.push(response); // Dodajte objekat tipa `Ordination`
-      this.newOrdination = { name: '', phoneNumber: '', ownerEmail: '', address: '' }; // Reset form
-    });
+  closeDeleteConfirmation(): void {
+    this.showDeleteConfirmation = false;
+    this.ordinationToDelete = null;
   }
 
-  loadOrdinances(): void {
-    this.ordinationService.getOrdinations().subscribe((data: Ordination[]) => {
-      this.ordinations = data; // Niz tipa `Ordination`
-    });
+  confirmDelete(): void {
+    if (this.ordinationToDelete !== null) {
+      this.deleteOrdination(this.ordinationToDelete);
+      this.closeDeleteConfirmation();
+    }
   }
+
+  deleteOrdination(id: number): void {
+    this.ordinationService.deleteOrdination(id).subscribe(
+      () => {
+        this.ordinations = this.ordinations.filter(o => o.ordinationId !== id);
+      },
+      (error) => console.error('Greška pri brisanju ordinacije:', error)
+    );
+  }
+
+  viewOrdinationDetails(id: number): void {
+    if (id) {
+      this.ordinationService.getOrdinationById(id).subscribe(
+        (data) => {
+          this.selectedOrdination = data;
+          this.showDetails = true;
+        },
+        (error) => console.error('Greška pri dobijanju detalja ordinacije:', error)
+      );
+    } else {
+      console.error('Nevažeći ID ordinacije:', id);
+    }
+  }
+
+  editOrdination(): void {
+    this.editingOrdination = true;
+  }
+
+  closeDetails(): void {
+    this.selectedOrdination = null;
+    this.showDetails = false;
+  }
+
+  startEditing(ordination: Ordination): void {
+    this.editingOrdination = true;
+    this.newOrdination = { ...ordination, ownerEmail: this.ownerEmail };
+    this.showDetails = true;
+  }
+
+  updateOrdination(): void {
+    console.log('Updating ordination with data:', this.newOrdination);
+    if (this.newOrdination.ordinationId) {
+      this.ordinationService.updateOrdination(this.newOrdination.ordinationId, this.newOrdination).subscribe(
+        () => {
+          this.ordinations = this.ordinations.map(o => o.ordinationId === this.newOrdination.ordinationId ? this.newOrdination as Ordination : o);
+          this.editingOrdination = false;  
+          this.viewOrdinationDetails(this.newOrdination.ordinationId);
+        // Zatvori formu za uređivanje
+          this.showDetails = true;  
+        },
+        (error) => console.error('Greška pri ažuriranju ordinacije:', error)
+      );
+    }
+  }
+  
 }
-
-

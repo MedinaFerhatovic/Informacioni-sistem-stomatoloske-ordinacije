@@ -1,38 +1,112 @@
 <div class="header">
+  <div class="page">
+    <div class="form-container">
+      <button type="button" class="button" (click)="openForm()">Nova ordinacija</button>
+    </div>
 
-<div class="page" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-    <div style="flex: 1;">
-      <label for="name">Naziv ordinacije:</label>
-         <input class="input-frame"id="name" [(ngModel)]="newOrdination.name" name="name" required style="width: 100%;" />
+    <div class="stats">
+      <p>Ukupno ordinacija: {{ ordinations.length }}</p>
     </div>
-  
-    <div style="flex: 1;">
-      <label for="phoneNumber">Telefon:</label>
-        <input class="input-frame" id="phoneNumber" [(ngModel)]="newOrdination.phoneNumber" name="phoneNumber" style="width: 100%;" />
+
+    <!-- Overlay and form display -->
+    <div class="overlay" *ngIf="showForm" (click)="closeForm()">
+      <div class="form-popup" (click)="$event.stopPropagation()">
+        <h2 *ngIf="!editingOrdination">Nova ordinacija</h2>
+        <div class="form-group">
+          <label for="name">Naziv ordinacije:</label>
+          <input class="input-frame" id="name" [(ngModel)]="newOrdination.name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Telefon/Kontakt ordinacije:</label>
+          <input class="input-frame" id="phoneNumber" [(ngModel)]="newOrdination.phoneNumber" name="phoneNumber" />
+        </div>
+        <div class="form-group">
+          <label for="ownerEmail">Email vlasnika:</label>
+          <input class="input-frame" id="ownerEmail" [(ngModel)]="newOrdination.ownerEmail" name="ownerEmail" required />
+        </div>
+        <div class="form-group">
+          <label for="address">Adresa ordinacije:</label>
+          <input class="input-frame" id="address" [(ngModel)]="newOrdination.address" name="address" required />
+        </div>
+        <div class="form-group">
+          <button type="button" class="button2" (click)="addOrdination(newOrdination)">Dodaj ordinaciju</button>
+          <button type="button" class="close-button" (click)="closeForm()">Zatvori</button>
+        </div>
+      </div>
     </div>
-  
-    <div style="flex: 1;">
-      <label for="ownerEmail">Email vlasnika:</label>
-        <input class="input-frame" id="ownerEmail" [(ngModel)]="newOrdination.ownerEmail" name="ownerEmail" required style="width: 100%;" />
-    </div>
-  
-    <div style="flex: 1;">
-      <label for="address">Adresa:</label>
-        <input class="input-frame" id="address" [(ngModel)]="newOrdination.address" name="address" required style="width: 100%;" />
-    </div>
-  
-    <div style="flex: 1;">
-      <button type="submit" class="button">Dodaj ordinaciju</button>
+
+    <hr />
+
+    <div class="ordinations-list">
+      <div *ngFor="let ordination of ordinations" class="ordination-item">
+        <p class="title2"><strong>Naziv ordinacije:</strong> {{ ordination.name }}</p>
+        <div class="ordination-actions">
+          <button class="button3" (click)="viewOrdinationDetails(ordination.ordinationId)">Detalji ordinacije</button>
+          <button class="delete-button" (click)="openDeleteConfirmation(ordination.ordinationId)">Izbriši</button>
+        </div>
+        <!-- Modal za potvrdu brisanja -->
+<div class="overlay" *ngIf="showDeleteConfirmation" (click)="closeDeleteConfirmation()">
+  <div class="confirmation-popup" (click)="$event.stopPropagation()">
+    <h2>Da li ste sigurni da želite obrisati ordinaciju "{{ ordination.name }}"?</h2>
+    <div class="form-group">
+      <button type="button" class="confirm-button" (click)="confirmDelete()">DA</button>
+      <button type="button" class="cancel-button" (click)="closeDeleteConfirmation()">NE</button>
     </div>
   </div>
-  
-  <hr />
-  
-  <div *ngFor="let ordination of ordinations" style="margin-top: 20px;">
-    <p><strong>Naziv:</strong> {{ ordination.name }}</p>
-    <p><strong>Telefon:</strong> {{ ordination.phoneNumber }}</p>
-    <p><strong>Vlasnik:</strong> {{ ordination.owner}}</p>
-    <p><strong>Adresa:</strong> {{ ordination.address }}</p>
-    <hr />
+</div>
+
+        <hr />
+      </div>
+    </div>
+    <!-- Overlay i prikaz detalja -->
+<!-- Detalji Ordinacije Popup -->
+<!-- Detalji Ordinacije Popup -->
+<div class="overlay" *ngIf="showDetails" (click)="closeDetails()">
+  <div class="details-popup" (click)="$event.stopPropagation()">
+    <h2>{{ editingOrdination ? 'Izmjena Ordinacije' : 'Detalji Ordinacije' }}</h2>
+    
+    <!-- Prikaz detalja ili forma za uređivanje -->
+    <div *ngIf="!editingOrdination">
+      <p><strong>ID Ordinacije:</strong> {{ selectedOrdination?.ordinationId }}</p>
+      <p><strong>Naziv Ordinacije:</strong> {{ selectedOrdination?.name }}</p>
+      <p><strong>Telefon/Kontakt Ordinacije:</strong> {{ selectedOrdination?.phoneNumber }}</p>
+      <p><strong>ID Vlasnika Ordinacije:</strong> {{ selectedOrdination?.owner }}</p>
+      <p><strong>Adresa Ordinacije:</strong> {{ selectedOrdination?.address }}</p>
+      <div class="form-group2">
+        <button class="edit-button" (click)="startEditing(selectedOrdination)">Uredi</button>
+        <button type="button" class="close-button" (click)="closeDetails()">Zatvori</button>
+      </div>
+    </div>
+    
+    <div *ngIf="editingOrdination">
+      <!-- Forma za uređivanje -->
+      <div class="form-group">
+        <label for="name">ID ordinacije:</label>
+        <input class="input-frame" id="ordinationId" [(ngModel)]="newOrdination.ordinationId" name="ordinationId" required readonly/>
+      </div>
+      <div class="form-group">
+        <label for="name">Naziv ordinacije:</label>
+        <input class="input-frame" id="name" [(ngModel)]="newOrdination.name" name="name" required />
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Telefon/Kontakt ordinacije:</label>
+        <input class="input-frame" id="phoneNumber" [(ngModel)]="newOrdination.phoneNumber" name="phoneNumber" />
+      </div>
+      <div class="form-group">
+        <label for="ownerEmail">Email vlasnika:</label>
+        <input class="input-frame" id="ownerEmail" [(ngModel)]="newOrdination.ownerEmail" name="ownerEmail" required />
+      </div>
+      <div class="form-group">
+        <label for="address">Adresa ordinacije:</label>
+        <input class="input-frame" id="address" [(ngModel)]="newOrdination.address" name="address" required />
+      </div>
+      <div class="form-group2">
+        <button type="button" class="edit-button" (click)="updateOrdination()">Spremi izmjene</button>
+        <button type="button" class="close-button" (click)="closeDetails()">Zatvori</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   </div>
 </div>

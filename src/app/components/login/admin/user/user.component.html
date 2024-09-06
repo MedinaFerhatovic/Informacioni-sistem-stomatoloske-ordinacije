@@ -1,0 +1,131 @@
+<div class="header">
+    <div class="page">
+      <div class="form-container">
+        <button type="button" class="button" (click)="openForm()">Novi korisnik</button>
+      </div>
+  
+      <div class="stats">
+        <p>Ukupno korisnika: {{ users.length }}</p>
+      </div>
+  
+      <!-- Overlay and form display -->
+      <div class="overlay" *ngIf="showForm" (click)="closeForm()">
+        <div class="form-popup" (click)="$event.stopPropagation()">
+          <h2 *ngIf="!editingUser">Novi korisnik</h2>
+          <div class="form-group">
+            <label for="firstName">Ime korisnika:</label>
+            <input class="input-frame" id="firstName" [(ngModel)]="newUser.firstName" name="firstName" required />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Prezime korisnika:</label>
+            <input class="input-frame" id="lastName" [(ngModel)]="newUser.lastName" name="lastName" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email korisnika:</label>
+            <input class="input-frame" id="email" [(ngModel)]="newUser.email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Lozinka korisnika:</label>
+            <input class="input-frame" id="password" type="password" [(ngModel)]="newUser.password" name="password" required />
+          </div>
+          <div class="form-group">
+            <label for="role">Pozicija:</label>
+            <select class="input-frame" id="role" [(ngModel)]="newUser.role" name="role" required>
+              <option value="pacijent">Pacijent</option>
+              <option value="doktor">Doktor</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <button type="button" class="button2" (click)="addUser(newUser)">Dodaj korisnika</button>
+            <button type="button" class="close-button" (click)="closeForm()">Zatvori</button>
+          </div>
+        </div>
+      </div>
+  
+      <hr />
+  
+      <div class="ordinations-list">
+        <div *ngFor="let user of users" class="ordination-item">
+          <p class="title2"><strong>Ime i prezime korisnika:</strong> {{ user.firstName }} {{ user.lastName }}</p>
+          <div class="ordination-actions">
+            <button class="button3" (click)="viewUserDetails(user.userId)">Detalji o korisniku</button>
+            <button class="delete-button" (click)="openDeleteConfirmation(user.userId)">Izbriši</button>
+        </div>
+          <!-- Modal za potvrdu brisanja -->
+  <div class="overlay" *ngIf="showDeleteConfirmation" (click)="closeDeleteConfirmation()">
+    <div class="confirmation-popup" (click)="$event.stopPropagation()">
+      <h2>Da li ste sigurni da želite obrisati korisnika?</h2>
+      <div class="form-group">
+        <button type="button" class="confirm-button" (click)="confirmDelete()">DA</button>
+        <button type="button" class="cancel-button" (click)="closeDeleteConfirmation()">NE</button>
+      </div>
+    </div>
+  </div>
+  
+          <hr />
+        </div>
+      </div>
+      <!-- Overlay i prikaz detalja -->
+  <!-- Detalji Ordinacije Popup -->
+  <!-- Detalji Ordinacije Popup -->
+  <div class="overlay" *ngIf="showDetails" (click)="closeDetails()">
+    <div class="details-popup" (click)="$event.stopPropagation()">
+      <h2>{{ editingUser ? 'Izmjena Korisnika' : 'Detalji o Korisniku' }}</h2>
+      
+      <!-- Prikaz detalja ili forma za uređivanje -->
+      <div *ngIf="!editingUser">
+        <p><strong>ID Korisnika:</strong> {{ selectedUser?.userId }}</p>
+        <p><strong>Ime Korisnika:</strong> {{ selectedUser?.firstName }}</p>
+        <p><strong>Prezime Korisnika:</strong> {{ selectedUser?.lastName }}</p>
+        <p><strong>Email Korisnika:</strong> {{ selectedUser.email }}</p>
+        <p><strong>Lozinka korisnika:</strong> {{ selectedUser.password }}</p>
+        <p><strong>Pozicija Korisnika:</strong> {{ selectedUser?.role}}</p>
+        <div class="form-group2">
+          <button class="edit-button" (click)="startEditing(selectedUser)">Uredi</button>
+          <button type="button" class="close-button" (click)="closeDetails()">Zatvori</button>
+        </div>
+      </div>
+      
+      <div *ngIf="editingUser">
+        <!-- Forma za uređivanje -->
+        <div class="form-group">
+          <label for="name">ID korisnika:</label>
+          <input class="input-frame" id="userId" [(ngModel)]="newUser.userId" name="userId" required readonly/>
+        </div>
+        <div class="form-group">
+          <label for="name">Ime korisnika:</label>
+          <input class="input-frame" id="firstName" [(ngModel)]="newUser.firstName" name="firstName" required />
+        </div>
+        <div class="form-group">
+            <label for="name">Prezime korisnika:</label>
+            <input class="input-frame" id="lastName" [(ngModel)]="newUser.lastName" name="lastName" required />
+          </div>
+        <div class="form-group">
+          <label for="email">Email korisnika:</label>
+          <input class="input-frame" id="email" [(ngModel)]="newUser.email" name="email" required />
+        </div>
+        <div class="form-group">
+            <label for="email">Lozinka korisnika:</label>
+            <input class="input-frame" id="password" type="password" [(ngModel)]="newUser.password" name="password" required />
+        </div>
+        <div class="form-group">
+            <label for="role">Pozicija:</label>
+            <select class="input-frame" id="role" [(ngModel)]="newUser.role" name="role" required>
+              <option value="pacijent">Pacijent</option>
+              <option value="doktor">Doktor</option>
+              <option value="admin">Admin</option>
+            </select>
+        </div>
+          
+        <div class="form-group2">
+          <button type="button" class="edit-button" (click)="updateUser()">Spremi izmjene</button>
+          <button type="button" class="close-button" (click)="closeDetails()">Zatvori</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    </div>
+  </div>
