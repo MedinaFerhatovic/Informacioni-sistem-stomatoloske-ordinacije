@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\Korisnik\Desktop\DentalClinic.API</_PublishTargetUrl>
+    <History>True|2024-09-16T17:06:40.8175278Z;False|2024-09-16T19:05:55.2534253+02:00;True|2024-09-15T18:40:28.9371701+02:00;False|2024-09-15T18:39:53.6996055+02:00;True|2024-09-15T16:47:14.7956553+02:00;False|2024-09-15T16:46:46.3393746+02:00;True|2024-09-15T15:50:27.1090606+02:00;False|2024-09-15T15:49:39.3311837+02:00;True|2024-09-13T23:54:04.5015869+02:00;True|2024-09-12T10:11:31.4705005+02:00;False|2024-09-12T10:10:53.3558184+02:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>server=localhost%3bport=3306%3buser=root%3bpassword=root%3bdatabase=dental_clinic%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

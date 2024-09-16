@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dental_clinic.Data.Models
+namespace Dental_clinic.Data.DTO
 {
     public class OrdinationDto
     {

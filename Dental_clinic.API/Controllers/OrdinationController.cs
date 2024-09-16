@@ -1,4 +1,5 @@
 ﻿using Dental_clinic.Data.DBContext;
+using Dental_clinic.Data.DTO;
 using Dental_clinic.Data.Models;
 using Dental_clinic.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +15,15 @@ namespace Dental_clinic.API.Controllers
         private readonly ILogger<OrdinationController> _logger;
         private readonly DentalClinicContext _context;
         private readonly IConfiguration _configuration;
+        private readonly OpenCageService _openCageService;
 
-        public OrdinationController(DentalClinicContext context, IOrdinationRepository ordinationRepository, ILogger<OrdinationController> logger, IConfiguration configuration)
+        public OrdinationController(DentalClinicContext context, IOrdinationRepository ordinationRepository, ILogger<OrdinationController> logger, IConfiguration configuration, OpenCageService openCageService)
         {
             _context = context;
             _ordinationRepository = ordinationRepository;
             _logger = logger;
             _configuration = configuration;
+            _openCageService = openCageService;
         }
 
         [HttpPost]
@@ -39,16 +42,26 @@ namespace Dental_clinic.API.Controllers
                     });
                 }
 
+                var (latitude, longitude) = await _openCageService.GetCoordinatesAsync(ordinationDto.Address);
+                if (latitude == null || longitude == null)
+                {
+                    return NotFound(new { StatusCode = 404, message = "Unable to find location coordinates" });
+                }
+
                 // Pronađi lokaciju na osnovu adrese
-                var location = await _context.Locations.FirstOrDefaultAsync(l => l.Address == ordinationDto.Address);
+                var location = await _context.Locations.FirstOrDefaultAsync(l => l.Latitude == latitude && l.Longitude == longitude);
                 if (location == null)
                 {
-                    return NotFound(new
+                    location = new Location
                     {
-                        StatusCode = 404,
-                        message = "Location not found"
-                    });
+                        Address = ordinationDto.Address,
+                        Latitude = latitude,
+                        Longitude = longitude,
+                    };
+                    _context.Locations.Add(location);
+                    await _context.SaveChangesAsync();
                 }
+
 
                 var newOrdination = new Ordination
                 {
@@ -182,6 +195,62 @@ namespace Dental_clinic.API.Controllers
                 _logger.LogError(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, new { StatusCode = 500, message = ex.Message });
             }
+        }
+
+        [HttpGet("owner/{ownerId}")]
+        public IActionResult GetOrdinationByOwner(int ownerId)
+        {
+            var ordination = _context.Ordinations.FirstOrDefault(o => o.Owner == ownerId);
+
+            if (ordination == null)
+            {
+                return NotFound(new { message = "Doktor nije vlasnik nijedne ordinacije." });
+            }
+
+            return Ok(ordination);
+        }
+
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchOrdinationsByLocation(decimal latitude, decimal longitude, double radiusKm)
+        {
+            try
+            {
+                var ordinations = await _context.Ordinations
+                    .Include(o => o.Location)
+                    .Include(o => o.OwnerNavigation)
+                    .Where(o => EF.Functions.Like(o.Location.Latitude.ToString(), $"{latitude}%")
+                             && EF.Functions.Like(o.Location.Longitude.ToString(), $"{longitude}%"))
+                    .ToListAsync();
+
+                // Filtriraj ordinacije unutar zadanog radijusa
+                var nearbyOrdinations = ordinations.Where(o => CalculateDistance(latitude, longitude, o.Location.Latitude.Value, o.Location.Longitude.Value) <= radiusKm)
+                                                   .ToList();
+
+                return Ok(nearbyOrdinations);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new { StatusCode = 500, message = ex.Message });
+            }
+        }
+
+        private double CalculateDistance(decimal lat1, decimal lon1, decimal lat2, decimal lon2)
+        {
+            double R = 6371e3; // Earth radius in meters
+            double φ1 = (double)lat1 * Math.PI / 180;
+            double φ2 = (double)lat2 * Math.PI / 180;
+            double Δφ = (double)(lat2 - lat1) * Math.PI / 180;
+            double Δλ = (double)(lon2 - lon1) * Math.PI / 180;
+
+            double a = Math.Sin(Δφ / 2) * Math.Sin(Δφ / 2) +
+                       Math.Cos(φ1) * Math.Cos(φ2) *
+                       Math.Sin(Δλ / 2) * Math.Sin(Δλ / 2);
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+            double distance = R * c; // in meters
+            return distance / 1000; // return distance in kilometers
         }
     }
 }

@@ -7,13 +7,18 @@ public partial class Appointment
 {
     public int AppointmentId { get; set; }
 
-    public int? OrdinationId { get; set; }
+    public int OrdinationId { get; set; }
 
-    public DateTime? DateTime { get; set; }
+    public DateTime Date { get; set; }
+    
+    public TimeSpan StartTime { get; set; }
 
-    public bool? Available { get; set; }
+    public TimeSpan EndTime { get; set; }
+    public bool Available { get; set; } = true;
 
-    public virtual Ordination? Ordination { get; set; }
+    public Ordination Ordination { get; set; }
 
-    public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+    //public virtual Ordination? Ordination { get; set; }
+
+    //public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 }

@@ -12,3 +12,4 @@ C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\refint\De
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\Dental_clinic.Data.pdb
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\Dental_clinic.Data.genruntimeconfig.cache
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\ref\Dental_clinic.Data.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.Data\obj\Debug\net8.0\Dental_clinic.Data.sourcelink.json

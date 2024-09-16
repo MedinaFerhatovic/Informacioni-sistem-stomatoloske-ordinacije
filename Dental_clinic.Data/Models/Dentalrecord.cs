@@ -21,7 +21,8 @@ public partial class Dentalrecord
 
     public string? Addition { get; set; }
 
-    public virtual Ordination? Ordination { get; set; }
+    // public virtual Ordination? Ordination { get; set; }
 
-    public virtual User? Patient { get; set; }
+    //public virtual User? Patient { get; set; }
+    public ICollection<Visit> Visits { get; set; }
 }

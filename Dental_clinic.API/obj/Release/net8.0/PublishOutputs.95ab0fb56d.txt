@@ -12,6 +12,8 @@ C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\O
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\K4os.Compression.LZ4.Streams.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\K4os.Hash.xxHash.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\Microsoft.AspNetCore.JsonPatch.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\Microsoft.AspNetCore.OpenApi.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\Microsoft.Data.SqlClient.dll
@@ -32,6 +34,8 @@ C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\O
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\Microsoft.Win32.SystemEvents.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\MySql.Data.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\MySql.EntityFrameworkCore.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\Newtonsoft.Json.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\Newtonsoft.Json.Bson.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll

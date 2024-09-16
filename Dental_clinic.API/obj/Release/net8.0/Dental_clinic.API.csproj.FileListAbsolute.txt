@@ -151,3 +151,8 @@ C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\refint\D
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\Dental_clinic.API.pdb
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\Dental_clinic.API.genruntimeconfig.cache
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\ref\Dental_clinic.API.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\Dental_clinic.API.sourcelink.json
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\bin\Release\net8.0\Newtonsoft.Json.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\bin\Release\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\bin\Release\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\bin\Release\net8.0\Newtonsoft.Json.Bson.dll

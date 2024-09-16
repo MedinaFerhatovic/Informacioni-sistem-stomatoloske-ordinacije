@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MySql.EntityFrameworkCore.Extensions;
 using System.Text;
-using Microsoft.Extensions.Configuration;
-using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,8 +26,12 @@ builder.Services.AddEntityFrameworkMySQL()
     {
         options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
+builder.Services.AddHttpClient();
 builder.Services.AddTransient<IUserRepository,UserRepository>();
 builder.Services.AddTransient<IOrdinationRepository, OrdinationRepository>();
+builder.Services.AddTransient<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddTransient<IDentalRecordRepository, DentalRecordRepository>();
+builder.Services.AddSingleton<OpenCageService>();
 
 
 builder.Services.AddCors(options =>
@@ -71,6 +75,15 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); // Ako koristiš Enum
+    });
+
+
 // U Startup.cs ili Program.cs
 builder.Services.AddHttpContextAccessor();
 
@@ -87,7 +100,7 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API v1");
     });
 }
-app.UseCors("AllowAll");
+app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseSession();
 
 app.UseHttpsRedirection();
