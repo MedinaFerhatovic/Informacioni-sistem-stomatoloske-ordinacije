@@ -17,6 +17,9 @@ namespace Dental_clinic.Data.Repositories
         Task<bool> ResetPasswordAsync(string email, string newPassword);
 
         Task<User> GetCurrentUserAsync(string email);
+        Task<User> GetUserByEmailAsync(string email);
+
+        Task<IEnumerable<User>> GetUsersByIds(IEnumerable<int> userIds);
 
     }
 }

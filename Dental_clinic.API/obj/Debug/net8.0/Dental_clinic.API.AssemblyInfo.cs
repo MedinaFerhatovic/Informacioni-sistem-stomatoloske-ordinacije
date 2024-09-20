@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Dental_clinic.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2fc3d65c5133a5f4d494fa382fec19cee7454d9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38a23253fbeb37759d6e9062fdea8cd6c48a34e5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Dental_clinic.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Dental_clinic.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -18,6 +18,9 @@ public class DentalClinicContext : DbContext
 
     public DbSet<Dentalrecord> DentalRecords { get; set; }
     public DbSet<Visit> Visits { get; set; }
+
+    public DbSet<Reservation> Reservations { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -37,12 +40,13 @@ public class DentalClinicContext : DbContext
         modelBuilder.Entity<Appointment>().ToTable("Appointment");
         modelBuilder.Entity<Dentalrecord>().ToTable("Dentalrecord");
         modelBuilder.Entity<Visit>().ToTable("Visit");
+        modelBuilder.Entity<Reservation>().ToTable("Reservation");
         modelBuilder.Entity<Visit>()
-     .HasOne(v => v.DentalRecord)
-     .WithMany(d => d.Visits)
-     .HasForeignKey(v => v.DentalRecordId)
-     .OnDelete(DeleteBehavior.Cascade)
-     .HasConstraintName("FK_Visit_DentalRecord");
+            .HasOne(v => v.DentalRecord)
+            .WithMany(d => d.Visits)
+            .HasForeignKey(v => v.DentalRecordId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .HasConstraintName("FK_Visit_DentalRecord");
 
 
         modelBuilder.Entity<Ordination>(entity =>

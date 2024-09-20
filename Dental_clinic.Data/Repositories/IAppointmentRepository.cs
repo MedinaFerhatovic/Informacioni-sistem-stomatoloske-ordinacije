@@ -15,4 +15,7 @@ public interface IAppointmentRepository
     Task DeleteAppointment(int appointmentId);
 
     Task UpdateAppointment(int appointmentId, DateTime newDate, TimeSpan newStartTime, TimeSpan newEndTime, bool isAvailable);
+
+    Task<IEnumerable<Appointment>> GetAppointmentsByIds(IEnumerable<int> appointmentIds);
+
 }

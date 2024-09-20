@@ -106,6 +106,19 @@ public class UserRepository : IUserRepository
         })
         .FirstOrDefaultAsync();
     }
+
+
+    public async Task<User> GetUserByEmailAsync(string email)
+    {
+        return await _ctx.Users
+            .FirstOrDefaultAsync(u => u.Email == email);
+    }
+
+    public async Task<IEnumerable<User>> GetUsersByIds(IEnumerable<int> userIds)
+    {
+        return await _ctx.Users.Where(u => userIds.Contains(u.UserId)).ToListAsync();
+    }
+
 }
 
 

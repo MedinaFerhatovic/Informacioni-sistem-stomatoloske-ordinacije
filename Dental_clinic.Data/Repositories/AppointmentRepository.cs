@@ -88,4 +88,10 @@ namespace Dental_clinic.Data.Repositories;
             await _ctx.SaveChangesAsync();
         }
     }
+
+    public async Task<IEnumerable<Appointment>> GetAppointmentsByIds(IEnumerable<int> appointmentIds)
+    {
+        return await _ctx.Appointments.Where(a => appointmentIds.Contains(a.AppointmentId)).ToListAsync();
+    }
+
 }

@@ -31,6 +31,7 @@ builder.Services.AddTransient<IUserRepository,UserRepository>();
 builder.Services.AddTransient<IOrdinationRepository, OrdinationRepository>();
 builder.Services.AddTransient<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddTransient<IDentalRecordRepository, DentalRecordRepository>();
+builder.Services.AddTransient<IReservationRepository, ReservationRepository>();
 builder.Services.AddSingleton<OpenCageService>();
 
 
