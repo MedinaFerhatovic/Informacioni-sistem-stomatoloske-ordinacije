@@ -1,7 +1,3 @@
-Naravno! Evo kako bi izgledao profesionalno napisan README fajl za GitHub projekt sa svim potrebnim detaljima, ikonicama, i formatiranjem.
-
----
-
 # 🦷 Inovativni Sistem za Stomatološke Ordinacije s Mogućnošću Geolokacijske Pretrage (ISSO)
 
 ![Dental Clinic](https://img.icons8.com/fluency/48/000000/dental-checkup.png)
@@ -115,5 +111,3 @@ Ovaj projekt je pod [MIT licencom](LICENSE).
 
 ## 🤝 Autori
 - Medina Ferhatović - [GitHub](https://github.com/medina-ferhatovic)
-  
----
