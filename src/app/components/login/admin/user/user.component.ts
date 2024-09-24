@@ -77,7 +77,7 @@ import { UserService } from '../../../../services/user.service';
           this.users = this.users.map(u => u.userId === this.newUser.userId ? this.newUser as User : u);
           this.editingUser = false;  
           this.viewUserDetails(this.newUser.userId);
-          this.showDetails = true;  // Zatvori formu za uređivanje
+          this.showDetails = true;  
         },
         (error) => console.error('Greška pri ažuriranju korisnika:', error)
       );

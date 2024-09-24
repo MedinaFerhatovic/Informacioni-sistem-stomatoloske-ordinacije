@@ -8,7 +8,6 @@
       <p>Ukupno ordinacija: {{ ordinations.length }}</p>
     </div>
 
-    <!-- Overlay and form display -->
     <div class="overlay" *ngIf="showForm" (click)="closeForm()">
       <div class="form-popup" (click)="$event.stopPropagation()">
         <h2 *ngIf="!editingOrdination">Nova ordinacija</h2>
@@ -44,7 +43,6 @@
           <button class="button3" (click)="viewOrdinationDetails(ordination.ordinationId)">Detalji ordinacije</button>
           <button class="delete-button" (click)="openDeleteConfirmation(ordination.ordinationId)">Izbriši</button>
         </div>
-        <!-- Modal za potvrdu brisanja -->
 <div class="overlay" *ngIf="showDeleteConfirmation" (click)="closeDeleteConfirmation()">
   <div class="confirmation-popup" (click)="$event.stopPropagation()">
     <h2>Da li ste sigurni da želite obrisati ordinaciju "{{ ordination.name }}"?</h2>
@@ -58,14 +56,10 @@
         <hr />
       </div>
     </div>
-    <!-- Overlay i prikaz detalja -->
-<!-- Detalji Ordinacije Popup -->
-<!-- Detalji Ordinacije Popup -->
 <div class="overlay" *ngIf="showDetails" (click)="closeDetails()">
   <div class="details-popup" (click)="$event.stopPropagation()">
     <h2>{{ editingOrdination ? 'Izmjena Ordinacije' : 'Detalji Ordinacije' }}</h2>
     
-    <!-- Prikaz detalja ili forma za uređivanje -->
     <div *ngIf="!editingOrdination">
       <p><strong>ID Ordinacije:</strong> {{ selectedOrdination?.ordinationId }}</p>
       <p><strong>Naziv Ordinacije:</strong> {{ selectedOrdination?.name }}</p>
@@ -79,7 +73,6 @@
     </div>
     
     <div *ngIf="editingOrdination">
-      <!-- Forma za uređivanje -->
       <div class="form-group">
         <label for="name">ID ordinacije:</label>
         <input class="input-frame" id="ordinationId" [(ngModel)]="newOrdination.ordinationId" name="ordinationId" required readonly/>

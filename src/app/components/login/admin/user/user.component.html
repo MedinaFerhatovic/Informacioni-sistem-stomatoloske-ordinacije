@@ -8,7 +8,6 @@
         <p>Ukupno korisnika: {{ users.length }}</p>
       </div>
   
-      <!-- Overlay and form display -->
       <div class="overlay" *ngIf="showForm" (click)="closeForm()">
         <div class="form-popup" (click)="$event.stopPropagation()">
           <h2 *ngIf="!editingUser">Novi korisnik</h2>
@@ -50,10 +49,9 @@
         <div *ngFor="let user of users" class="ordination-item">
           <p class="title2"><strong>Ime i prezime korisnika:</strong> {{ user.firstName }} {{ user.lastName }}</p>
           <div class="ordination-actions">
-            <button class="button3" (click)="viewUserDetails(user.userId)">Detalji o korisniku</button>
-            <button class="delete-button" (click)="openDeleteConfirmation(user.userId)">Izbriši</button>
+            <button class="button3" *ngIf="user.userId" (click)="viewUserDetails(user.userId)">Detalji o korisniku</button>
+            <button class="delete-button" *ngIf="user.userId" (click)="openDeleteConfirmation(user.userId)">Izbriši</button>
         </div>
-          <!-- Modal za potvrdu brisanja -->
   <div class="overlay" *ngIf="showDeleteConfirmation" (click)="closeDeleteConfirmation()">
     <div class="confirmation-popup" (click)="$event.stopPropagation()">
       <h2>Da li ste sigurni da želite obrisati korisnika?</h2>
@@ -67,14 +65,10 @@
           <hr />
         </div>
       </div>
-      <!-- Overlay i prikaz detalja -->
-  <!-- Detalji Ordinacije Popup -->
-  <!-- Detalji Ordinacije Popup -->
   <div class="overlay" *ngIf="showDetails" (click)="closeDetails()">
     <div class="details-popup" (click)="$event.stopPropagation()">
       <h2>{{ editingUser ? 'Izmjena Korisnika' : 'Detalji o Korisniku' }}</h2>
       
-      <!-- Prikaz detalja ili forma za uređivanje -->
       <div *ngIf="!editingUser">
         <p><strong>ID Korisnika:</strong> {{ selectedUser?.userId }}</p>
         <p><strong>Ime Korisnika:</strong> {{ selectedUser?.firstName }}</p>
@@ -89,7 +83,6 @@
       </div>
       
       <div *ngIf="editingUser">
-        <!-- Forma za uređivanje -->
         <div class="form-group">
           <label for="name">ID korisnika:</label>
           <input class="input-frame" id="userId" [(ngModel)]="newUser.userId" name="userId" required readonly/>

@@ -40,7 +40,7 @@ export class OrdinationComponent implements OnInit {
   getOwnerEmail(ownerId: number): void {
     this.userService.getUserById(ownerId).subscribe(
       user => {
-        this.ownerEmail = user.email;
+        this.ownerEmail = user.email ?? '';
       },
       error => console.error('Greška pri dobijanju emaila vlasnika:', error)
     );
@@ -63,10 +63,10 @@ export class OrdinationComponent implements OnInit {
         ordinationId: ordination.ordinationId,
         name: ordination.name,
         phoneNumber: ordination.phoneNumber,
-        ownerEmail: this.ownerEmail, // Korištenje emaila vlasnika
+        ownerEmail: this.ownerEmail,
         address: ordination.address
       };
-      this.getOwnerEmail(ordination.owner); // Dohvati email vlasnika za postojeću ordinaciju
+      this.getOwnerEmail(ordination.owner); 
     } else {
       this.editingOrdination = false;
       this.newOrdination = {
@@ -75,7 +75,7 @@ export class OrdinationComponent implements OnInit {
         ownerEmail: '',
         address: ''
       };
-      this.ownerEmail = ''; // Resetuj email vlasnika
+      this.ownerEmail = '';
     }
     this.showForm = true;
   }
@@ -146,7 +146,6 @@ export class OrdinationComponent implements OnInit {
           this.ordinations = this.ordinations.map(o => o.ordinationId === this.newOrdination.ordinationId ? this.newOrdination as Ordination : o);
           this.editingOrdination = false;  
           this.viewOrdinationDetails(this.newOrdination.ordinationId);
-        // Zatvori formu za uređivanje
           this.showDetails = true;  
         },
         (error) => console.error('Greška pri ažuriranju ordinacije:', error)

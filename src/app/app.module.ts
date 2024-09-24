@@ -15,6 +15,16 @@ import { AdminComponent } from "./components/login/admin/admin.component";
 import { OrdinationComponent } from "./components/login/admin/ordination/ordination.component";
 import { OrdinationService } from "./services/ordination.service";
 import { FormsModule } from '@angular/forms'; 
+import { UserComponent } from "./components/login/admin/user/user.component";
+import { DoctorComponent } from "./components/doctor/doctor.component";
+import { AppointmentComponent } from "./components/doctor/appointment/appointment.component";
+import { AppointmentService } from "./services/appointment.service";
+import { DentalRecord } from "./models/dentalRecord";
+import { DentalRecordComponent } from "./components/doctor/dentalRecord/dentalRecord.component";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReservationComponent } from "./components/doctor/reservation/reservation.component";
+import { ReservationService } from "./services/reservation.service";
+import { DentalRecordService } from "./services/dentalRecord.service";
 
 @NgModule({
   declarations: [
@@ -23,6 +33,11 @@ import { FormsModule } from '@angular/forms';
     ForgotPasswordComponent,
     AdminComponent,
     OrdinationComponent,
+    UserComponent,
+    DoctorComponent,
+    AppointmentComponent,
+    DentalRecordComponent,
+    ReservationComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,8 +49,9 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     MatInputModule,
     FormsModule,
+    FontAwesomeModule,
   ],
-  providers: [UserService, OrdinationService,
+  providers: [UserService, OrdinationService, AppointmentService, DentalRecordService, ReservationService,
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
   ],
   bootstrap: [AppComponent]

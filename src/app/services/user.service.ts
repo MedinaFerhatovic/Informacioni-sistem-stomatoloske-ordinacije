@@ -7,9 +7,9 @@ import { Observable } from "rxjs";
 interface ApiResponse {
     StatusCode: number;
     message: string;
+    user: User;
   }
-  
-  // Definiši model za telo zahteva
+
   interface ResetPasswordRequest {
     email: string;
     newPassword: string;
@@ -20,10 +20,10 @@ interface ApiResponse {
 
     constructor(private http: HttpClient) {}
 
-    loginUser(email: string, password: string) {
-        const url = `${environment.apiUrl}/users/login/${email}/${password}`;
-        return this.http.get<User>(url);
-    }
+    loginUser(email: string, password: string): Observable<ApiResponse> {
+      return this.http.get<ApiResponse>(`${environment.apiUrl}/users/login/${email}/${password}`);
+  }
+  
     
     resetPassword(email: string, newPassword: string): Observable<ApiResponse> {
         const url = `${environment.apiUrl}/users/resetPassword`;

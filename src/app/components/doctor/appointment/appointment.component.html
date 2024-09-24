@@ -1,0 +1,162 @@
+<div class="header">
+  <div class="page">
+    <div class="form-container">
+      <button type="button" class="button" (click)="openForm()">Novi termin</button>
+    </div>
+    <div class="container">
+      <div class="stats-container">
+        <div class="stat-card">
+          <i class="fas fa-calendar-alt"></i>
+          <p>Ukupno termina: <span>{{ totalAppointments }}</span></p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-clock"></i>
+          <p>Slobodni termini: <span>{{ freeAppointments }}</span></p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-user-check"></i>
+          <p>Zauzeti termini: <span>{{ takenAppointments }}</span></p>
+        </div>
+      </div>
+    </div>
+    
+  
+
+    <div class="overlay" *ngIf="showForm" (click)="closeForm()">
+      <div class="form-popup" (click)="$event.stopPropagation()">
+        <h2>Novi termini</h2>
+
+        <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+
+          <div class="form-group">
+            <input type="text" id="ordinationId" formControlName="ordinationId" class="form-control" readonly hidden/>
+          </div>
+
+          <div class="form-group">
+            <label class="date" for="date">Datum:</label>
+            <input type="text" id="date" formControlName="date" class="form-control" />
+            <div *ngIf="appointmentForm.get('date')?.invalid && (appointmentForm.get('date')?.dirty || appointmentForm.get('date')?.touched)" class="error-message">
+              <small class="error" *ngIf="appointmentForm.get('date')?.errors?.['required']">Datum je obavezan.</small>
+              <small class="error" *ngIf="appointmentForm.get('date')?.errors?.['pattern']">Datum mora biti u formatu dd.mm.yyyy.</small>
+            </div>
+          </div>          
+
+          <div formArrayName="timeSlots">
+            <div *ngFor="let slot of timeSlots.controls; let i = index" [formGroupName]="i" class="slot-container">
+              <div class="form-group slot-item">
+                <label for="startTime">Početak termina:</label>
+                <input type="text" id="startTime" formControlName="startTime" placeholder="Početak (08:00)" class="form-control" />
+                <div *ngIf="slot.get('startTime')?.invalid && (slot.get('startTime')?.dirty || slot.get('startTime')?.touched)" class="error-message">
+                  <small *ngIf="slot.get('startTime')?.errors?.['required']">Početak termina je obavezan.</small>
+                  <small *ngIf="slot.get('startTime')?.errors?.['pattern']">Početak mora biti u formatu hh:mm.</small>
+                </div>
+              </div>
+    
+              <div class="form-group slot-item">
+                <label for="endTime">Kraj termina:</label>
+                <input type="text" id="endTime" formControlName="endTime" placeholder="Kraj (08:30)" class="form-control" />
+                <div *ngIf="slot.get('endTime')?.invalid && (slot.get('endTime')?.dirty || slot.get('endTime')?.touched)" class="error-message">
+                  <small *ngIf="slot.get('endTime')?.errors?.['required']">Kraj termina je obavezan.</small>
+                  <small *ngIf="slot.get('endTime')?.errors?.['pattern']">Kraj mora biti u formatu hh:mm.</small>
+                  <small *ngIf="slot.get('endTime')?.value && slot.get('startTime')?.value && slot.get('endTime')?.value <= slot.get('startTime')?.value">Kraj termina mora biti poslije početka.</small>
+                </div>
+              </div>
+
+              <button type="button" (click)="removeTimeSlot(i)" class="btn btn-danger">Ukloni</button>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" (click)="addTimeSlot()" class="btn btn-primary">Dodaj novi termin</button>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" [disabled]="appointmentForm.invalid" class="btn btn-success">Spremi termine</button>
+            <button type="button" class="btn btn-secondary" (click)="closeForm()">Zatvori</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+   <!-- Existing code above -->
+
+<hr/>
+
+<div *ngIf="appointmentsByDate.length > 0">
+  <!-- Date dropdown container -->
+  <div *ngFor="let dateGroup of appointmentsByDate" class="date-group">
+    <div class="date-header" (click)="toggleDropdown(dateGroup.date)">
+      <span class="appointment-date">{{ dateGroup.date | date: 'dd.MM.yyyy.' }}</span>
+      <span class="arrow" [ngClass]="{'open': isDropdownOpen(dateGroup.date)}">▼</span>
+    </div>    
+
+    <div *ngIf="isDropdownOpen(dateGroup.date)" class="dropdown-menu">
+      <div *ngFor="let appointment of dateGroup.appointments" class="appointment-item">
+        <div class="appointment-info">
+          <span class="appointment-time"><td>{{ formatTimeDisplay(appointment.startTime) }} - {{ formatTimeDisplay(appointment.endTime) }}</td></span>
+        </div>
+        <div class="appointment-actions">
+          <button *ngIf="appointment.available" (click)="editAppointment(appointment)" class="btn btn-warning">Uredi</button>
+          <button *ngIf="appointment.available" (click)="deleteAppointment(appointment.appointmentId)" class="btn btn-danger">Izbriši</button>
+          <button *ngIf="!appointment.available" (click)="toggleAvailability(appointment.appointmentId, appointment.available)" class="btn btn-success">Termin dostupan</button>
+          <button *ngIf="appointment.available" (click)="toggleAvailability(appointment.appointmentId, appointment.available)" class="btn btn-secondary">Termin nedostupan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="overlay" *ngIf="showEditForm" (click)="closeEditForm()">
+  <div class="form-popup" (click)="$event.stopPropagation()">
+    <h2>Izmjena termina</h2>
+
+    <form [formGroup]="editForm" (ngSubmit)="onUpdate()">
+
+      <div class="form-group">
+        <label for="appointmentId">ID termina:</label>
+        <input class="form-control" id="appointmentId" formControlName="appointmentId" readonly />
+      </div>
+      
+
+      <div class="form-group">
+        <label for="editDate">Datum:</label>
+        <input type="text" id="editDate" formControlName="date" class="form-control" />
+        <div *ngIf="editForm.get('date')?.invalid && (editForm.get('date')?.dirty || editForm.get('date')?.touched)" class="error-message">
+          <small class="error" *ngIf="editForm.get('date')?.errors?.['required']">Datum je obavezan.</small>
+          <small class="error" *ngIf="editForm.get('date')?.errors?.['pattern']">Datum mora biti u formatu dd.mm.yyyy.</small>
+        </div>
+      </div>
+      
+
+      <div class="form-group">
+        <label for="editStartTime">Početak termina:</label>
+        <input type="text" id="editStartTime" formControlName="startTime" class="form-control" />
+        <div *ngIf="editForm.get('startTime')?.invalid && (editForm.get('startTime')?.dirty || editForm.get('startTime')?.touched)" class="error-message">
+          <small class="error" *ngIf="editForm.get('startTime')?.errors?.['required']">Početak termina je obavezan.</small>
+          <small class="error" *ngIf="editForm.get('startTime')?.errors?.['pattern']">Početak mora biti u formatu hh:mm.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="editEndTime">Kraj termina:</label>
+        <input type="text" id="editEndTime" formControlName="endTime" class="form-control" />
+        <div *ngIf="editForm.get('endTime')?.invalid && (editForm.get('endTime')?.dirty || editForm.get('endTime')?.touched)" class="error-message">
+          <small class="error" *ngIf="editForm.get('endTime')?.errors?.['required']">Kraj termina je obavezan.</small>
+          <small class="error" *ngIf="editForm.get('startTime')?.errors?.['pattern']">Kraj mora biti u formatu hh:mm.</small>
+          <small *ngIf="editForm.get('endTime')?.value && editForm.get('startTime')?.value && editForm.get('endTime')?.value <= editForm.get('startTime')?.value">Kraj termina mora biti poslije početka.</small>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="editForm.invalid" class="btn btn-success">Spremi izmjene</button>
+        <button type="button" class="btn btn-secondary" (click)="closeEditForm()">Zatvori</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+  </div>
+</div>

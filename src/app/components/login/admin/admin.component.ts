@@ -69,10 +69,8 @@ export class AdminComponent implements OnInit {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   
     if (!this.isSidebarCollapsed) {
-      // Ako je sidebar otvoren, provjeri da li je treba dodati bilo kakvu logiku za ponovno prikazivanje
       setTimeout(() => {
-        // Na primjer, osvježi elemente u sidebaru ako je potrebno
-      }, 300); // Vrijeme koje odgovara CSS tranziciji (0.3s)
+      }, 300); 
     }
   }
   

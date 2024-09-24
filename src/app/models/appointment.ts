@@ -1,6 +1,8 @@
 export interface Appointment{
-    appointmentID : number;
+    appointmentId : number;
     ordinationID: number;
-    dateTime: Date;
+    date: Date;
+    startTime: string;
+    endTime: string;
     available: boolean;
-}
+}       

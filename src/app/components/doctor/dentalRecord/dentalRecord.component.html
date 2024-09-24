@@ -1,0 +1,228 @@
+<div class="header">
+  <div class="page">
+    <div class="form-container">
+      <button type="button" class="button" (click)="openForm()">Novi stomatološki karton</button>
+    </div>
+
+    <div class="stats-container">
+      <div class="stat-card">
+        <i class="fas fa-file-medical"></i>
+        <p>Ukupno stomatoloških kartona: <span>{{ dentalRecords.length }}</span></p>
+      </div>
+    </div>
+    
+
+    <div class="overlay" *ngIf="showForm" (click)="closeForm()">
+      <div class="form-popup" (click)="$event.stopPropagation()">
+        <h1 style="margin-left: 430px;">Novi stomatološki karton</h1>
+
+        <form [formGroup]="dentalRecordForm" (submit)="createDentalRecord()" class="form-layout">
+
+          <div class="form-group">
+            <input type="text" id="ordinationId" formControlName="ordinationId" class="form-control" readonly hidden/>
+          </div>
+
+          <div class="form-section" *ngIf="ordination">
+            <h2>Podaci ordinacije</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ordinationName">Naziv ordinacije:</label>
+                <input id="ordinationName" formControlName="ordinationName" class="form-control" readonly/>
+              </div>
+              <div class="form-group">
+                <label for="ordinationPhoneNumber">Broj telefona ordinacije:</label>
+                <input id="ordinationPhoneNumber" formControlName="ordinationPhoneNumber" class="form-control" readonly/>
+              </div>
+              <div class="form-group">
+                <label for="ordinationAddress">Adresa ordinacije:</label>
+                <input id="ordinationAddress" formControlName="ordinationAddress" class="form-control" readonly/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Podaci pacijenta</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="patientEmail">Email pacijenta:</label>
+                <input id="patientEmail" formControlName="patientEmail" type="email" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="patientFirstName">Ime pacijenta:</label>
+                <input id="patientFirstName" formControlName="patientFirstName" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="patientLastName">Prezime pacijenta:</label>
+                <input id="patientLastName" formControlName="patientLastName" class="form-control" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Detalji posjete</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="visitDate">Datum posjete:</label>
+                <input id="visitDate" formControlName="visitDate" type="date" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="examination">Vrsta stomatološke usluge:</label>
+                <textarea id="examination" formControlName="examination" class="form-control" required></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Dodatne informacije</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="recipe">Terapija:</label>
+                <textarea id="recipe" formControlName="recipe" class="form-control"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="addition">Dodatne napomene:</label>
+                <textarea id="addition" formControlName="addition" class="form-control"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" [disabled]="dentalRecordForm.invalid" class="button">Spremi karton</button>
+            <button type="button" class="btn btn-secondary" (click)="closeForm()">Zatvori</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+    <hr>
+
+    <div class="record-list">
+      <div *ngFor="let record of dentalRecords" class="record-item">
+        <p class="title2"><strong>Broj stomatološkog kartona:</strong> {{ record.number }} </p>
+        <div class="record-actions">
+          <button class="button3" *ngIf="record.dentalRecordId" (click)="viewDentalRecordDetails(record.dentalRecordId)">Detalji o pacijentu</button>
+          <button class="delete-button" *ngIf="record.dentalRecordId" (click)="openDeleteConfirmation(record.dentalRecordId)">Izbriši</button>
+      </div>
+      <div class="overlay" *ngIf="showDeleteConfirmation" (click)="closeDeleteConfirmation()">
+        <div class="confirmation-popup" (click)="$event.stopPropagation()">
+          <h2>Da li ste sigurni da želite obrisati stomatološki karton?</h2>
+          <div class="form-group">
+            <button type="button" class="confirm-button" (click)="confirmDelete()">DA</button>
+            <button type="button" class="cancel-button" (click)="closeDeleteConfirmation()">NE</button>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="overlay" *ngIf="showDetails" (click)="closeDetails()">
+    <div class="details-popup" (click)="$event.stopPropagation()">
+      <div class="details-header">
+        <h1 style="margin-left: 500px;"><i class="fas fa-calendar-alt icon-spacing"></i> Stomatološki karton</h1>
+        <button class="close-button" (click)="closeDetails()"><i class="fas fa-times icon-spacing"></i></button>
+      </div>
+  
+      <!-- Prikaz detalja ili forma za uređivanje -->
+      <div *ngIf="!editingRecord">
+        <p hidden id="dentalRecordId">{{ selectedRecord.dentalRecordId }}</p>
+        <!-- Sekcija za ordinaciju -->
+        <div class="details-section">
+          <h2><i class="fas fa-clinic-medical icon-spacing"></i> Podaci ordinacije</h2>
+          <div class="details-content row">
+            <div class="detail-item">
+              <p><i class="fas fa-hospital icon-spacing"></i> <strong>Naziv ordinacije:</strong> {{ selectedOrdination?.name }}</p>
+            </div>
+            <div class="detail-item">
+              <p><i class="fas fa-phone icon-spacing"></i> <strong>Broj telefona:</strong> {{ selectedOrdination?.phoneNumber }}</p>
+            </div>
+            <div class="detail-item">
+              <p><i class="fas fa-map-marker-alt icon-spacing"></i> <strong>Adresa ordinacije:</strong> {{ selectedOrdination?.address }}</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Sekcija za pacijenta -->
+        <div class="details-section">
+          <h2><i class="fas fa-user icon-spacing"></i> Podaci pacijenta</h2>
+          <div class="details-content row">
+            <div class="detail-item">
+              <p><i class="fas fa-user icon-spacing"></i> <strong>Ime pacijenta:</strong> {{ selectedUser?.firstName }}</p>
+            </div>
+            <div class="detail-item">
+              <p><i class="fas fa-user icon-spacing"></i> <strong>Prezime pacijenta:</strong> {{ selectedUser?.lastName }}</p>
+            </div>
+            <div class="detail-item">
+              <p><i class="fas fa-envelope icon-spacing"></i> <strong>Email pacijenta:</strong> {{ selectedUser?.email }}</p>
+            </div>
+            <div class="detail-item">
+              <p><i class="fas fa-file-medical icon-spacing"></i> <strong>Broj stomatološkog kartona:</strong> {{ selectedRecord.number }}</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Sekcija za detalje posjete -->
+        <div class="details-section">
+          <h2><i class="fas fa-notes-medical icon-spacing"></i> Detalji pregleda</h2>
+          <div class="details-content">
+            <p><i class="fas fa-calendar-day icon-spacing"></i> <strong>Datum pregleda:</strong> {{ selectedRecord.visitDate }}</p>
+            <p><i class="fas fa-stethoscope icon-spacing"></i> <strong>Vrsta stomatološke usluge:</strong> {{ selectedRecord.examination }}</p>
+            <p><i class="fas fa-pills icon-spacing"></i> <strong>Terapija:</strong> {{ selectedRecord.recipe }}</p>
+            <p><i class="fas fa-sticky-note icon-spacing"></i> <strong>Dodatne napomene:</strong> {{ selectedRecord.addition }}</p>
+          </div>
+        </div>
+  
+        <!-- Sekcija za sve prethodne posjete -->
+        <div class="details-section" *ngIf="allVisits.length > 0">
+          <ul>
+            <li class="details-content" *ngFor="let visit of allVisits">
+              <h3><i class="fas fa-notes-medical icon-spacing"></i> Detalji pregleda</h3>
+              <p><i class="fas fa-calendar-day icon-spacing"></i> <strong>Datum pregleda:</strong> {{ visit.visitDate }}</p>
+              <p><i class="fas fa-stethoscope icon-spacing"></i> <strong>Vrsta stomatološke usluge:</strong> {{ visit.examination }}</p>
+              <p><i class="fas fa-pills icon-spacing"></i> <strong>Terapija:</strong> {{ visit.recipe }}</p>
+              <p><i class="fas fa-sticky-note icon-spacing"></i> <strong>Dodatne napomene:</strong> {{ visit.addition }}</p>
+            </li>
+          </ul>
+        </div>
+  
+        <div class="form-actions">
+          <button class="edit-button" (click)="openVisitForm(selectedRecord.dentalRecordId)">Novi pregled</button>
+          <button type="button" class="btn btn-secondary" (click)="closeDetails()">Zatvori</button>
+        </div>
+      </div>
+    </div>  
+  </div>
+  
+  
+<div class="overlay" *ngIf="showAddVisitForm" (click)="closeForm()">
+  <div class="form-popup" (click)="$event.stopPropagation()">
+    <h1 style="margin-left: 430px;">Dodaj detalje pregleda</h1>
+
+    <form [formGroup]="visitForm" (ngSubmit)="addVisit(selectedRecord.dentalRecordId)" class="form-layout">
+      <div class="form-group">
+        <label for="visitDate">Datum posjete:</label>
+        <input id="visitDate" formControlName="visitDate" type="date" class="form-control" required />
+      </div>
+      <div class="form-group">
+        <label for="examination">Vrsta stomatološke usluge:</label>
+        <textarea id="examination" formControlName="examination" class="form-control" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="recipe">Terapija:</label>
+        <textarea id="recipe" formControlName="recipe" class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="addition">Dodatne napomene:</label>
+        <textarea id="addition" formControlName="addition" class="form-control"></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="submit" [disabled]="visitForm.invalid" class="button">Spremi</button>
+        <button type="button" class="btn btn-secondary" (click)="closeForm()">Zatvori</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #noDentalRecords>
+  <div class="no-dentalRecords">
+    <p><i class="fas fa-info-circle"></i> Trenutno nema stomatoloških kartona za prikaz.</p>
+  </div>
+</ng-template>

@@ -1,0 +1,95 @@
+<div class="header">
+    <button class="toggle-button" (click)="toggleSidebar()">
+      <img src="/menu.png" alt="Toggle Menu">
+    </button>
+  
+    <div class="invisible-side-bar"></div>
+  
+    <div class="side-bar" [class.collapsed]="isSidebarCollapsed">
+      <ul class="list">
+        <div class="image-side">
+          <img src="/logo.png" alt="Logo" (click)="openPanel(panels[0])">
+        </div>
+  
+        <li>
+          <div class="frame">
+            <div class="grid">
+              <button class="list-item" (click)="openPanel(panels[1])">
+                <div class="wrapper">
+                  <i class="fas fa-calendar-alt icon"></i>
+                  <p class="title">Termini</p>
+                </div>
+              </button>
+            </div>
+          </div>
+        </li>
+  
+        <li>
+          <div class="frame">
+            <div class="grid">
+              <button class="list-item" (click)="openPanel(panels[2])">
+                <div class="wrapper">
+                  <i class="fas fa-file-medical icon"></i>
+                  <p class="title">Stomatološki kartoni</p>
+                </div>
+              </button>
+            </div>
+          </div>
+        </li>
+  
+        <li>
+          <div class="frame">
+            <div class="grid">
+              <button class="list-item" (click)="openPanel(panels[3])">
+                <div class="wrapper">
+                  <i class="fas fa-calendar-check icon"></i> 
+                  <p class="title">Rezervacije</p>
+                </div>
+              </button>
+            </div>
+          </div>
+        </li>
+  
+        <li>
+          <div class="frame1">
+            <div class="grid">
+              <button class="list-item" (click)="logoutUser()">
+                <div class="wrapper">
+                  <img src="/logout.png" class="icon">
+                  <p class="title" id="logout">Odjava</p>
+                </div>
+              </button>
+            </div>
+          </div>
+        </li>
+  
+      </ul>
+    </div>
+  
+    <div class="content">
+      <div class="spline" *ngIf="checkOrd(panels[0])">
+        <div class="spline-header">
+          <h1>Informacije o ordinaciji</h1>
+        </div>
+        <div class="spline-content">
+          <div class="info-card" *ngIf="ordination">
+            <h2>Opšti Podaci</h2>
+            <p><strong>Naziv:</strong> {{ ordination.name }}</p>
+            <p><strong>Lokacija:</strong> {{ ordination.address }}</p>
+            <p><strong>Broj telefona:</strong> {{ ordination.phoneNumber }}</p>
+          </div>
+          
+          <div class="info-card" *ngIf="ordination">
+            <h2>Statistika Termina</h2>
+            <p><strong>Ukupan broj termina:</strong> {{ totalAppointments }}</p>
+            <p><strong>Broj slobodnih termina:</strong> {{ freeAppointments }}</p>
+            <p><strong>Broj zauzetih termina:</strong> {{ takenAppointments }}</p>
+          </div>
+        </div>
+      </div>
+    
+      <app-appointment *ngIf="checkOrd(panels[1])"></app-appointment>
+      <app-dentalRecord *ngIf="checkOrd(panels[2])"></app-dentalRecord>
+      <app-reservation *ngIf="checkOrd(panels[3])"></app-reservation>
+    </div>
+  </div>
