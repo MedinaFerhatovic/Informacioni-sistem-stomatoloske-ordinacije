@@ -111,8 +111,5 @@ Dental_clinic/
 - [Angular Dokumentacija](https://angular.io/docs)
 - [React Native Dokumentacija](https://reactnative.dev/docs/getting-started)
 
-## 📜 Licenca
-Ovaj projekt je pod [MIT licencom](LICENSE).
-
 ## 🤝 Autori
-- Medina Ferhatović - [GitHub](https://github.com/medina-ferhatovic)
+- Medina Ferhatović - [GitHub](https://github.com/MedinaFerhatovic)
