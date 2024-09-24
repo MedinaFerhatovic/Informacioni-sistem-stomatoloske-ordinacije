@@ -80,8 +80,13 @@ Ovaj projekt je napredni sistem za upravljanje stomatološkim ordinacijama koji 
   
   > **Napomena:** Vaš računar i mobilni uređaj moraju biti povezani na istu WiFi mrežu kako bi API funkcionisao.
 
+Naravno! Evo ažurirane strukture projekta s podjelom na grane (branches) prema tvojoj želji:
+
 ## 📁 Struktura Projekta
 
+Projekt je organiziran u četiri glavne grane, gdje svaka grana predstavlja ključnu komponentu sistema:
+
+```bash
 Dental_clinic/
 ├── database-branch/                # Grana koja sadrži bazu podataka
 │   ├── dental_clinic.sql           # SQL skripta za kreiranje baze podataka
@@ -99,6 +104,7 @@ Dental_clinic/
 └── main/                           # Glavna grana (main) koja sadrži dokumentaciju
     └── README.md                   # Glavni README fajl za cijeli projekt
 
+```
 
 ## 📌 Važni Linkovi
 - [ASP.NET Dokumentacija](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-5.0)
