@@ -17,6 +17,28 @@ Ovaj projekt je napredni sistem za upravljanje stomatološkim ordinacijama koji 
    - Dodavanje novih pregleda u postojeće kartone
 4. Pregled i upravljanje rezervacijama pacijenata (odbijanje ili odobravanje)
 
+#### 📧 Pristupni podaci za prijavu
+
+- **Admin**
+  - Email: `medina@gmail.com`
+  - Lozinka: `medina123`
+
+- **Doktor 1**
+  - Email: `doktor@gmail.com`
+  - Lozinka: `doktor123`
+
+- **Doktor 2**
+  - Email: `doktor2@gmail.com`
+  - Lozinka: `doktor222`
+
+- **Pacijent 1**
+  - Email: `neko@gmail.com`
+  - Lozinka: `neko123`
+
+- **Pacijent 2**
+  - Email: `rijad@gmail.com`
+  - Lozinka: `rijad123`
+
 ### Mobilna aplikacija (Pacijent)
 #### 👩‍💼 Pacijent funkcionalnosti:
 1. Registracija i prijava
