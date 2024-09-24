@@ -1,7 +1,5 @@
 # 🦷 Inovativni Sistem za Stomatološke Ordinacije s Mogućnošću Geolokacijske Pretrage (ISSO)
 
-![Dental Clinic](https://img.icons8.com/fluency/48/000000/dental-checkup.png)
-
 Ovaj projekt je napredni sistem za upravljanje stomatološkim ordinacijama koji omogućava geolokacijsku pretragu i efikasno upravljanje terminima za pacijente, administratore i doktore. Sistem se sastoji od **web aplikacija** za doktore i administratore te **mobilne aplikacije** za pacijente.
 
 ## 🚀 Funkcionalnosti
