@@ -29,5 +29,10 @@
       <button class="login-button" type="submit">Prijavi se</button>
 
     </form>
+    <mat-card *ngIf="loginFailed" class="error-message">
+      <mat-card-content>
+        <span>{{ errorMessage }}</span>
+      </mat-card-content>
+    </mat-card>  
   </div>
 </div>
