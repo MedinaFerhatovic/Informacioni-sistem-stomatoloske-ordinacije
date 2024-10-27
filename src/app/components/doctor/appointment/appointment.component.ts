@@ -103,17 +103,22 @@ export class AppointmentComponent implements OnInit {
     if (this.editForm.invalid) {
       return;
     }
+    
     this.editForm.get('appointmentId')?.enable();
     const appointmentId = this.editForm.value.appointmentId;
-    const date = this.formatDate(new Date(this.editForm.value.date));
+  
+    const date = this.parseDate(this.editForm.value.date); 
+    const formattedDate = this.formatDate(date); 
+  
+    // Formatiranje vremena za početak i kraj
     const startTime = this.formatTime(this.editForm.value.startTime);
     const endTime = this.formatTime(this.editForm.value.endTime);
-
+  
     console.log("ID termina:", appointmentId);
-    console.log('Appointment ID:', this.editForm.value.appointmentId);
-
+    console.log('Ažuriranje termina sa ID-jem:', appointmentId);
+  
     const updateDto: UpdateAppointmentDto = {
-      newDate: date,
+      newDate: formattedDate, 
       newStartTime: startTime,
       newEndTime: endTime,
       isAvailable: true 
@@ -131,6 +136,7 @@ export class AppointmentComponent implements OnInit {
       }
     );
   }
+  
   
   isValidDate(date: Date): boolean {
     return date instanceof Date && !isNaN(date.getTime());

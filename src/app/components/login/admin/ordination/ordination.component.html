@@ -45,7 +45,7 @@
         </div>
 <div class="overlay" *ngIf="showDeleteConfirmation" (click)="closeDeleteConfirmation()">
   <div class="confirmation-popup" (click)="$event.stopPropagation()">
-    <h2>Da li ste sigurni da želite obrisati ordinaciju "{{ ordination.name }}"?</h2>
+    <h2>Da li ste sigurni da želite obrisati ordinaciju?</h2>
     <div class="form-group">
       <button type="button" class="confirm-button" (click)="confirmDelete()">DA</button>
       <button type="button" class="cancel-button" (click)="closeDeleteConfirmation()">NE</button>

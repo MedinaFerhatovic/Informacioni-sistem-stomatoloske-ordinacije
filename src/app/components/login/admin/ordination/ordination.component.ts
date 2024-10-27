@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrdinationService, OrdinationDto } from '../../../../services/ordination.service';
 import { Ordination } from '../../../../models/ordination';
 import { UserService } from '../../../../services/user.service';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-ordination',
@@ -37,14 +38,18 @@ export class OrdinationComponent implements OnInit {
     this.showForm = false;
   }
 
-  getOwnerEmail(ownerId: number): void {
-    this.userService.getUserById(ownerId).subscribe(
-      user => {
-        this.ownerEmail = user.email ?? '';
-      },
-      error => console.error('Greška pri dobijanju emaila vlasnika:', error)
+  getOwnerEmail(ownerId: number): Observable<any> {
+    console.log("Dobijam email za vlasnika sa ID-om:", ownerId); // Dodaj log za provjeru ID-a
+  
+    return this.userService.getUserById(ownerId).pipe(
+      map(user => {
+        console.log("Dobijeni podaci korisnika:", user);  // Ovdje bi trebali dobiti korisnika
+        return user.email ?? '';  // Provjeravamo da li postoji email
+      })
     );
   }
+  
+  
 
   addOrdination(ordinationDto : OrdinationDto): void {
     this.ordinationService.addOrdination(ordinationDto).subscribe(
@@ -63,10 +68,10 @@ export class OrdinationComponent implements OnInit {
         ordinationId: ordination.ordinationId,
         name: ordination.name,
         phoneNumber: ordination.phoneNumber,
-        ownerEmail: this.ownerEmail,
-        address: ordination.address
+        ownerEmail: this.getOwnerEmail(ordination.owner),
+        address: ordination.address,
       };
-      this.getOwnerEmail(ordination.owner); 
+
     } else {
       this.editingOrdination = false;
       this.newOrdination = {
@@ -75,9 +80,8 @@ export class OrdinationComponent implements OnInit {
         ownerEmail: '',
         address: ''
       };
-      this.ownerEmail = '';
+      this.showForm = true;
     }
-    this.showForm = true;
   }
 
   showDeleteConfirmation: boolean = false;

@@ -37,7 +37,7 @@
             <input type="text" id="date" formControlName="date" class="form-control" />
             <div *ngIf="appointmentForm.get('date')?.invalid && (appointmentForm.get('date')?.dirty || appointmentForm.get('date')?.touched)" class="error-message">
               <small class="error" *ngIf="appointmentForm.get('date')?.errors?.['required']">Datum je obavezan.</small>
-              <small class="error" *ngIf="appointmentForm.get('date')?.errors?.['pattern']">Datum mora biti u formatu dd.mm.yyyy.</small>
+              <small class="error" *ngIf="appointmentForm.get('date')?.errors?.['pattern']">Datum mora biti u formatu dd.mm.yyyy</small>
             </div>
           </div>          
 
@@ -124,7 +124,6 @@
         <input type="text" id="editDate" formControlName="date" class="form-control" />
         <div *ngIf="editForm.get('date')?.invalid && (editForm.get('date')?.dirty || editForm.get('date')?.touched)" class="error-message">
           <small class="error" *ngIf="editForm.get('date')?.errors?.['required']">Datum je obavezan.</small>
-          <small class="error" *ngIf="editForm.get('date')?.errors?.['pattern']">Datum mora biti u formatu dd.mm.yyyy.</small>
         </div>
       </div>
       

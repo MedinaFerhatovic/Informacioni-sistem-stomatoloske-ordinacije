@@ -72,6 +72,9 @@ import { UserService } from '../../../../services/user.service';
   updateUser(): void {
     console.log('Updating user with data:', this.newUser);
     if (this.newUser.userId) {
+      if (!this.newUser.password) {
+        this.newUser.password = this.selectedUser.password; // Ovdje koristi staru heširanu lozinku
+      }    
       this.userService.updateUser(this.newUser).subscribe(
         () => {
           this.users = this.users.map(u => u.userId === this.newUser.userId ? this.newUser as User : u);
@@ -102,7 +105,7 @@ import { UserService } from '../../../../services/user.service';
         name: '',
         phoneNumber: '',
         ownerEmail: '',
-        address: ''
+        address: '',
       };
     }
     this.showForm = true;

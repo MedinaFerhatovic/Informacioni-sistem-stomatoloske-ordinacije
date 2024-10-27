@@ -74,7 +74,8 @@
         <p><strong>Ime Korisnika:</strong> {{ selectedUser?.firstName }}</p>
         <p><strong>Prezime Korisnika:</strong> {{ selectedUser?.lastName }}</p>
         <p><strong>Email Korisnika:</strong> {{ selectedUser.email }}</p>
-        <p><strong>Lozinka korisnika:</strong> {{ selectedUser.password }}</p>
+        <p><strong>Lozinka korisnika:</strong> *********</p>
+
         <p><strong>Pozicija Korisnika:</strong> {{ selectedUser?.role}}</p>
         <div class="form-group2">
           <button class="edit-button" (click)="startEditing(selectedUser)">Uredi</button>
@@ -100,8 +101,8 @@
           <input class="input-frame" id="email" [(ngModel)]="newUser.email" name="email" required />
         </div>
         <div class="form-group">
-            <label for="email">Lozinka korisnika:</label>
-            <input class="input-frame" id="password" type="password" [(ngModel)]="newUser.password" name="password" required />
+            <label for="password">Nova lozinka:</label>
+            <input class="input-frame" id="password" type="password" [(ngModel)]="newUser.password" name="password" placeholder="Unesite novu lozinku"/>
         </div>
         <div class="form-group">
             <label for="role">Pozicija:</label>
