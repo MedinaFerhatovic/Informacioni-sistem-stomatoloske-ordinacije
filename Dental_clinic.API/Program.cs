@@ -8,11 +8,11 @@ using MySql.EntityFrameworkCore.Extensions;
 using System.Text;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.WebSockets;
+using System.Net.WebSockets;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at http://aka.ms/aspnetcore/swashbuckle
@@ -43,7 +43,6 @@ builder.Services.AddCors(options =>
                         .AllowAnyHeader());
 });
 
-// Dodajte podršku za autorizaciju
 builder.Services.AddAuthorization();
 
 var secretKey = builder.Configuration["JwtSettings:SecretKey"];
@@ -65,9 +64,9 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Trajanje sesije
-    options.Cookie.HttpOnly = true; // Pristup cookie samo preko HTTP-a
-    options.Cookie.IsEssential = true; // Sesija je potrebna za aplikaciju
+    options.IdleTimeout = TimeSpan.FromMinutes(30); 
+    options.Cookie.HttpOnly = true; 
+    options.Cookie.IsEssential = true; 
 });
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -81,11 +80,10 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); // Ako koristiš Enum
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); 
     });
 
 
-// U Startup.cs ili Program.cs
 builder.Services.AddHttpContextAccessor();
 
 
@@ -113,4 +111,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-

@@ -12,13 +12,13 @@ public class OrdinationRepository : IOrdinationRepository
 
     public async Task<IEnumerable<Ordination>> GetOrdinationAsync()
     {
-        return await _ctx.Ordinations.Include(o => o.Location).ToListAsync(); // Include Location
+        return await _ctx.Ordinations.Include(o => o.Location).ToListAsync(); 
     }
 
     public async Task<Ordination> GetOrdinationByIdAsync(int id)
     {
         return await _ctx.Ordinations.Include(o => o.Location)
-                                      .FirstOrDefaultAsync(o => o.OrdinationId == id); // Include Location
+                                      .FirstOrDefaultAsync(o => o.OrdinationId == id); 
     }
 
     public async Task<Ordination> CreateOrdinationAsync(Ordination ordination)

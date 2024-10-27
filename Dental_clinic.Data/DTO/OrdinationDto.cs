@@ -11,8 +11,8 @@ namespace Dental_clinic.Data.DTO
         public int OrdinationId { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
-        public string OwnerEmail { get; set; }  // Email umesto ID-a
-        public string Address { get; set; }  // Adresa za pretragu lokacije
+        public string OwnerEmail { get; set; }  
+        public string Address { get; set; }  
     }
 
 }

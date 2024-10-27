@@ -13,6 +13,14 @@ namespace Dental_clinic.Data.Repositories
         Task<int?> GetPatientIdByEmailAsync(string email);
         Task AddVisitToDentalRecordAsync(int dentalRecordId, VisitDto visitDto);
         Task<IEnumerable<Visit>> GetVisitsByDentalRecordIdAsync(int dentalRecordId);
+        Task<IEnumerable<Dentalrecord>> GetDentalRecordsByUserIdAsync(int userId);
+        Task<string> GetPatientEmailByIdAsync(int? patientId);
+        Task<string> GetPatientFirstNameByIdAsync(int? patientId);
+        Task<string> GetPatientLastNameByIdAsync(int? patientId);
+        Task<User> GetPatientByIdAsync(int patientId);
+        Task DeleteVisitAsync(int visitId);
+
+        Task<IEnumerable<Dentalrecord>> GetDentalRecordsByOrdinationIdAsync(int ordinationId);
 
     }
 }

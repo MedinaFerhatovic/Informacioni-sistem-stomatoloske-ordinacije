@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\diplomski rad\\Dental_clinic.API\\Dental_clinic.Data\\Dental_clinic.Data.csproj": {}
+    "C:\\Users\\Korisnik\\Desktop\\ISSO - Dental Clinic\\kopija\\Dental_clinic.API\\Dental_clinic.Data\\Dental_clinic.Data.csproj": {}
   },
   "projects": {
-    "C:\\diplomski rad\\Dental_clinic.API\\Dental_clinic.Data\\Dental_clinic.Data.csproj": {
+    "C:\\Users\\Korisnik\\Desktop\\ISSO - Dental Clinic\\kopija\\Dental_clinic.API\\Dental_clinic.Data\\Dental_clinic.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\diplomski rad\\Dental_clinic.API\\Dental_clinic.Data\\Dental_clinic.Data.csproj",
+        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\ISSO - Dental Clinic\\kopija\\Dental_clinic.API\\Dental_clinic.Data\\Dental_clinic.Data.csproj",
         "projectName": "Dental_clinic.Data",
-        "projectPath": "C:\\diplomski rad\\Dental_clinic.API\\Dental_clinic.Data\\Dental_clinic.Data.csproj",
+        "projectPath": "C:\\Users\\Korisnik\\Desktop\\ISSO - Dental Clinic\\kopija\\Dental_clinic.API\\Dental_clinic.Data\\Dental_clinic.Data.csproj",
         "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-        "outputPath": "C:\\diplomski rad\\Dental_clinic.API\\Dental_clinic.Data\\obj\\",
+        "outputPath": "C:\\Users\\Korisnik\\Desktop\\ISSO - Dental Clinic\\kopija\\Dental_clinic.API\\Dental_clinic.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -18,6 +18,8 @@ public partial class User
     [DefaultValue("pacijent")]
     public string? Role { get; set; }
 
+    public string? fcmToken { get; set; }
+
     //public virtual ICollection<Dentalrecord> Dentalrecords { get; set; } = new List<Dentalrecord>();
 
     public virtual ICollection<Ordination> Ordinations { get; set; } = new List<Ordination>();

@@ -15,6 +15,6 @@ namespace Dental_clinic.Data.DTO
         public string? Examination { get; set; }
         public string? Recipe { get; set; }
         public string? Addition { get; set; }
-        public int OrdinationId { get; set; }
+        public int? OrdinationId { get; set; }
     }
 }

@@ -12,6 +12,8 @@ public interface IAppointmentRepository
 
     Task UpdateAppointmentAvailability(int appointmentId);
 
+    Task UpdateAppointmentAvailability2(int appointmentId);
+
     Task DeleteAppointment(int appointmentId);
 
     Task UpdateAppointment(int appointmentId, DateTime newDate, TimeSpan newStartTime, TimeSpan newEndTime, bool isAvailable);

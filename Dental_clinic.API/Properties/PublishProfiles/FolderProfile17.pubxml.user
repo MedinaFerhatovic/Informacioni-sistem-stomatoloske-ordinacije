@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\Korisnik\Desktop\ISSO.api</_PublishTargetUrl>
+    <History>True|2024-10-21T16:06:12.4549781Z;True|2024-10-18T07:50:24.6193417+02:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>server=localhost%3bport=3306%3buser=root%3bpassword=root%3bdatabase=dental_clinic%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

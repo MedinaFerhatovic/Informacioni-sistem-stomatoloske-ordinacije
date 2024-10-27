@@ -20,6 +20,8 @@ namespace Dental_clinic.API.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly DentalClinicContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IReservationRepository _reservationRepository;
+        private readonly DentalRecordRepository _dentalRecordRepository;
 
         public UserController(DentalClinicContext context, IUserRepository userRepository, ILogger<UserController> logger, IConfiguration configuration)
         {
@@ -68,8 +70,11 @@ namespace Dental_clinic.API.Controllers
                 existingUser.FirstName = userToUpdate.FirstName;
                 existingUser.LastName = userToUpdate.LastName;
                 existingUser.Email = userToUpdate.Email;
-                existingUser.Password = userToUpdate.Password;
                 existingUser.Role = userToUpdate.Role;
+                if (!string.IsNullOrEmpty(userToUpdate.Password))
+                {
+                    existingUser.Password = PasswordHasher.HashPassword(userToUpdate.Password);
+                }
                 await _userRepository.UpdateUserAsync(existingUser);
                 return NoContent();
 
@@ -100,8 +105,10 @@ namespace Dental_clinic.API.Controllers
                         message = "Record not found"
                     });
                 }
+
                 await _userRepository.DeleteUserAsync(existingUser);
                 return NoContent();
+
 
             }
             catch (Exception ex)
@@ -181,11 +188,11 @@ namespace Dental_clinic.API.Controllers
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             if (user == null)
             {
-                return NotFound(); // Korisnik nije pronađen
+                return NotFound(); 
             }
             if (!PasswordHasher.VerifyPassword(user.Password, password))
             {
-                return Unauthorized(); // Neispravna lozinka
+                return Unauthorized(); 
             }
 
             HttpContext.Session.SetString("LoginEmail", user.Email);
@@ -222,11 +229,11 @@ namespace Dental_clinic.API.Controllers
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             if (user == null)
             {
-                return NotFound(); // Korisnik nije pronađen
+                return NotFound(); 
             }
             if (!PasswordHasher.VerifyPassword(user.Password, password))
             {
-                return Unauthorized(); // Neispravna lozinka
+                return Unauthorized(); 
             }
 
             HttpContext.Session.SetString("LoginEmail", user.Email);
@@ -308,13 +315,13 @@ namespace Dental_clinic.API.Controllers
 
             if (string.IsNullOrEmpty(email))
             {
-                return Unauthorized(); // Email nije pronađen u sesiji
+                return Unauthorized(); 
             }
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             if (user == null)
             {
-                return NotFound(); // Korisnik nije pronađen
+                return NotFound(); 
             }
 
             return Ok(new
@@ -323,8 +330,27 @@ namespace Dental_clinic.API.Controllers
                 user.LastName,
                 user.Email,
                 user.Password,
-                // Dodajte druge potrebne podatke koje želite prikazati
             });
         }
+
+        [HttpGet("email/{email}")]
+        public async Task<ActionResult<User>> GetUserByEmail(string email)
+        {
+            try
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+                if (user == null)
+                {
+                    return NotFound(new { message = "Korisnik nije pronađen." });
+                }
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+        }
+
     }
 }

@@ -23,7 +23,7 @@ public partial class Reservation
 
     public string PhoneNumber { get; set; }
 
-   // public virtual Appointment Appointment { get; set; }
+    public virtual Appointment Appointment { get; set; }
 
    // public virtual User User { get; set; }
 }

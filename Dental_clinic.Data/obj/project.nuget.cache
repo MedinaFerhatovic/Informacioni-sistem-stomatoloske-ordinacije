@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HWj6EWnSGe9qOGKP9ilyhPfPFfqvTE5E86YG7/ScJW7is5WVjuC2LLt5TYoWsN5G20kklD9RihFdLXpWUXgDkw==",
+  "dgSpecHash": "mfzN4oxcq6lM8l5/+RfGyGlmKr7JLKU0mVVZFwBP++EOZ/Dyo8vXhS3FhPOhfJwQ9XdD+C6LPoTSdEpJY6G1JA==",
   "success": true,
-  "projectFilePath": "C:\\diplomski rad\\Dental_clinic.API\\Dental_clinic.Data\\Dental_clinic.Data.csproj",
+  "projectFilePath": "C:\\Users\\Korisnik\\Desktop\\ISSO - Dental Clinic\\kopija\\Dental_clinic.API\\Dental_clinic.Data\\Dental_clinic.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Korisnik\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Korisnik\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

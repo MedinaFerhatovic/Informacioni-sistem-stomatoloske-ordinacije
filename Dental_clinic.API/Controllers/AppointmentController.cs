@@ -46,14 +46,10 @@ namespace Dental_clinic.Api.Controllers
             }
             catch (Exception ex)
             {
-                // Log exception and return error response
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
-
-
-        // GET: api/appointments/{ordinationId}/{date}
         [HttpGet("{ordinationId}/{date}")]
         public async Task<ActionResult<List<Appointment>>> GetAppointmentsByDate(int ordinationId, DateTime date)
         {
@@ -61,7 +57,6 @@ namespace Dental_clinic.Api.Controllers
             return Ok(appointments);
         }
 
-        // GET: api/appointments/all/{ordinationId}
         [HttpGet("all/{ordinationId}")]
         public async Task<ActionResult<List<Appointment>>> GetAllAppointments(int ordinationId)
         {
@@ -81,7 +76,6 @@ namespace Dental_clinic.Api.Controllers
             }
         }
 
-        // GET: api/appointments/{appointmentId}
         [HttpGet("{appointmentId}")]
         public async Task<ActionResult<Appointment>> GetAppointmentById(int appointmentId)
         {
@@ -97,14 +91,11 @@ namespace Dental_clinic.Api.Controllers
             }
             catch (Exception ex)
             {
-                // Log exception and return error response
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Greška prilikom dohvaćanja termina: {ex.Message}");
             }
         }
 
 
-
-        // PUT: api/appointments/toggle-availability/{appointmentId}
         [HttpPut("toggle-availability/{appointmentId}")]
         public async Task<IActionResult> ToggleAppointmentAvailability(int appointmentId)
         {
@@ -112,7 +103,6 @@ namespace Dental_clinic.Api.Controllers
             return NoContent();
         }
 
-        // DELETE: api/appointments/{appointmentId}
         [HttpDelete("delete/{appointmentId}")]
         public async Task<IActionResult> DeleteAppointment(int appointmentId)
         {
@@ -120,11 +110,10 @@ namespace Dental_clinic.Api.Controllers
             return NoContent();
         }
 
-        // PUT: api/appointments/update/{appointmentId}
         [HttpPut("update/{appointmentId}")]
         public async Task<IActionResult> UpdateAppointment(int appointmentId, [FromBody] UpdateAppointmentDto updateDto)
         {
-            // Parsiranje datuma
+          
             if (!DateTime.TryParseExact(updateDto.NewDate, "dd.MM.yyyy",
                 System.Globalization.CultureInfo.InvariantCulture,
                 System.Globalization.DateTimeStyles.None,
@@ -133,7 +122,6 @@ namespace Dental_clinic.Api.Controllers
                 return BadRequest($"Invalid date format: {updateDto.NewDate}");
             }
 
-            // Parsiranje vremena
             if (!TimeSpan.TryParse(updateDto.NewStartTime, out var newStartTime))
             {
                 return BadRequest($"Invalid start time format: {updateDto.NewStartTime}");
@@ -144,7 +132,6 @@ namespace Dental_clinic.Api.Controllers
                 return BadRequest($"Invalid end time format: {updateDto.NewEndTime}");
             }
 
-            // Pozivanje metoda u repozitorijumu
             await _appointmentRepository.UpdateAppointment(
                 appointmentId,
                 newDate,

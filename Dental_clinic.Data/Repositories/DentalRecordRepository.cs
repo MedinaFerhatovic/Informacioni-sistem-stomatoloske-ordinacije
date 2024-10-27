@@ -79,7 +79,6 @@ namespace Dental_clinic.Data.Repositories
 
         private string GenerateUniqueNumber()
         {
-            // Generišite nasumičan broj od 3-5 cifara
             var random = new Random();
             return random.Next(100, 99999).ToString();
         }
@@ -113,6 +112,58 @@ namespace Dental_clinic.Data.Repositories
         {
             return await _context.Visits
                 .Where(v => v.DentalRecordId == dentalRecordId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Dentalrecord>> GetDentalRecordsByUserIdAsync(int userId)
+        {
+            return await _context.DentalRecords
+                .Where(dr => dr.PatientId == userId)
+                .Include(dr => dr.Visits) 
+                .ToListAsync();
+        }
+
+
+        public async Task<string> GetPatientEmailByIdAsync(int? patientId)
+        {
+            var patient = await _context.Users.FindAsync(patientId);
+            return patient?.Email;
+        }
+
+        public async Task<string> GetPatientFirstNameByIdAsync(int? patientId)
+        {
+            var patient = await _context.Users.FindAsync(patientId);
+            return patient?.FirstName;
+        }
+
+        public async Task<string> GetPatientLastNameByIdAsync(int? patientId)
+        {
+            var patient = await _context.Users.FindAsync(patientId);
+            return patient?.LastName;
+        }
+
+        public async Task<User> GetPatientByIdAsync(int patientId)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserId == patientId);
+        }
+
+        public async Task DeleteVisitAsync(int visitId)
+        {
+            var visit = await _context.Visits.FindAsync(visitId);
+
+            if (visit != null)
+            {
+                _context.Visits.Remove(visit);
+
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<Dentalrecord>> GetDentalRecordsByOrdinationIdAsync(int ordinationId)
+        {
+            return await _context.DentalRecords
+                .Where(dr => dr.OrdinationId == ordinationId) 
+                .Include(dr => dr.Visits) 
                 .ToListAsync();
         }
 

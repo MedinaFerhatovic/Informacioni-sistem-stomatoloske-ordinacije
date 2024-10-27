@@ -31,7 +31,6 @@ namespace Dental_clinic.API.Controllers
         {
             try
             {
-                // Pronađi vlasnika na osnovu email-a
                 var owner = await _context.Users.FirstOrDefaultAsync(u => u.Email == ordinationDto.OwnerEmail);
                 if (owner == null)
                 {
@@ -48,7 +47,6 @@ namespace Dental_clinic.API.Controllers
                     return NotFound(new { StatusCode = 404, message = "Unable to find location coordinates" });
                 }
 
-                // Pronađi lokaciju na osnovu adrese
                 var location = await _context.Locations.FirstOrDefaultAsync(l => l.Latitude == latitude && l.Longitude == longitude);
                 if (location == null)
                 {
@@ -67,8 +65,8 @@ namespace Dental_clinic.API.Controllers
                 {
                     Name = ordinationDto.Name,
                     PhoneNumber = ordinationDto.PhoneNumber,
-                    Owner = owner.UserId,  // Postavi ID vlasnika
-                    LocationId = location.LocationId,  // Postavi ID lokacije
+                    Owner = owner.UserId, 
+                    LocationId = location.LocationId,  
                     Address = ordinationDto.Address
                 };
 
@@ -101,7 +99,6 @@ namespace Dental_clinic.API.Controllers
                     return NotFound(new { StatusCode = 404, message = "Ordination not found" });
                 }
 
-                // Pronađi vlasnika na osnovu email-a
                 var owner = await _context.Users.FirstOrDefaultAsync(u => u.Email == ordinationDto.OwnerEmail);
                 if (owner == null)
                 {
@@ -112,7 +109,6 @@ namespace Dental_clinic.API.Controllers
                     });
                 }
 
-                // Pronađi lokaciju na osnovu adrese
                 var location = await _context.Locations.FirstOrDefaultAsync(l => l.Address == ordinationDto.Address);
                 if (location == null)
                 {
@@ -123,11 +119,10 @@ namespace Dental_clinic.API.Controllers
                     });
                 }
 
-                // Ažuriraj sve atribute
                 existingOrdination.Name = ordinationDto.Name;
                 existingOrdination.PhoneNumber = ordinationDto.PhoneNumber;
-                existingOrdination.Owner = owner.UserId;  // Postavi ID vlasnika
-                existingOrdination.LocationId = location.LocationId;  // Postavi ID lokacije
+                existingOrdination.Owner = owner.UserId;  
+                existingOrdination.LocationId = location.LocationId;  
                 existingOrdination.Address = ordinationDto.Address;
 
                 await _context.SaveChangesAsync();
@@ -219,14 +214,11 @@ namespace Dental_clinic.API.Controllers
                 var ordinations = await _context.Ordinations
                     .Include(o => o.Location)
                     .Include(o => o.OwnerNavigation)
-                    .Where(o => EF.Functions.Like(o.Location.Latitude.ToString(), $"{latitude}%")
-                             && EF.Functions.Like(o.Location.Longitude.ToString(), $"{longitude}%"))
                     .ToListAsync();
 
-                // Filtriraj ordinacije unutar zadanog radijusa
-                var nearbyOrdinations = ordinations.Where(o => CalculateDistance(latitude, longitude, o.Location.Latitude.Value, o.Location.Longitude.Value) <= radiusKm)
-                                                   .ToList();
-
+                var nearbyOrdinations = ordinations.Where(o =>
+            CalculateDistance(latitude, longitude, o.Location.Latitude.Value, o.Location.Longitude.Value) <= radiusKm)
+           .ToList();
                 return Ok(nearbyOrdinations);
             }
             catch (Exception ex)
@@ -238,7 +230,7 @@ namespace Dental_clinic.API.Controllers
 
         private double CalculateDistance(decimal lat1, decimal lon1, decimal lat2, decimal lon2)
         {
-            double R = 6371e3; // Earth radius in meters
+            double R = 6371e3; 
             double φ1 = (double)lat1 * Math.PI / 180;
             double φ2 = (double)lat2 * Math.PI / 180;
             double Δφ = (double)(lat2 - lat1) * Math.PI / 180;
@@ -249,8 +241,8 @@ namespace Dental_clinic.API.Controllers
                        Math.Sin(Δλ / 2) * Math.Sin(Δλ / 2);
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
-            double distance = R * c; // in meters
-            return distance / 1000; // return distance in kilometers
+            double distance = R * c; 
+            return distance / 1000;
         }
     }
 }

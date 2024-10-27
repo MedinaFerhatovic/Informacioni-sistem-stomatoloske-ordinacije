@@ -43,6 +43,7 @@ C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\O
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\System.Drawing.Common.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\System.IdentityModel.Tokens.Jwt.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\System.Memory.Data.dll
+C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\System.Net.WebSockets.WebSocketProtocol.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\System.Runtime.Caching.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\System.Security.Cryptography.ProtectedData.dll
 C:\diplomski rad\Dental_clinic.API\Dental_clinic.API\obj\Release\net8.0\PubTmp\Out\System.Security.Permissions.dll

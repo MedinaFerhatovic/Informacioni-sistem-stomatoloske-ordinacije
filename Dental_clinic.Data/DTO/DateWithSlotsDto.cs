@@ -8,7 +8,7 @@ namespace Dental_clinic.Data.DTO
 {
     public class DateWithSlotsDto
     {
-        public string Date { get; set; } // Datum u formatu dd.MM.yyyy
+        public string Date { get; set; }
         public List<TimeSlotDto> TimeSlots { get; set; }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using Dental_clinic.Data.DBContext;
 using Dental_clinic.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
 
 namespace Dental_clinic.Data.Repositories
 {
@@ -55,5 +54,19 @@ namespace Dental_clinic.Data.Repositories
             reservation.Status = newStatus;
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<IEnumerable<Reservation>> GetReservationsByUserIdAsync(int userId)
+        {
+            return await _context.Reservations
+                .Where(r => r.UserId == userId)
+                .ToListAsync();
+        }
+        public async Task<IEnumerable<Reservation>> GetReservationsByOrdinationIdAsync(int ordinationId)
+        {
+            return await _context.Reservations
+                .Where(r => r.Appointment.OrdinationId == ordinationId) 
+                .ToListAsync();
+        }
+
     }
 }

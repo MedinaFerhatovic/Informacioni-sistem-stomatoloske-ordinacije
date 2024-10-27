@@ -59,15 +59,13 @@ namespace Dental_clinic.API.Controllers
                 return BadRequest("Invalid data.");
             }
 
-            // Pronađi postojeći dentalni karton
             var dentalRecord = await _repository.GetDentalRecordByIdAsync(id);
             if (dentalRecord == null)
             {
                 return NotFound();
             }
 
-            // Mapiraj DTO u entitet
-            dentalRecord.PatientId = await _repository.GetPatientIdByEmailAsync(dentalRecordDto.PatientEmail); // Pronađi pacijenta po emailu
+            dentalRecord.PatientId = await _repository.GetPatientIdByEmailAsync(dentalRecordDto.PatientEmail); 
             dentalRecord.VisitDate = dentalRecordDto.VisitDate;
             dentalRecord.Examination = dentalRecordDto.Examination;
             dentalRecord.Recipe = dentalRecordDto.Recipe;
@@ -131,6 +129,17 @@ namespace Dental_clinic.API.Controllers
         {
             try
             {
+                var visits = await _repository.GetVisitsByDentalRecordIdAsync(id);
+
+                if (visits != null && visits.Any())
+                {
+                    // Izbriši sve posjete
+                    foreach (var visit in visits)
+                    {
+                        await _repository.DeleteVisitAsync(visit.VisitId);
+                    }
+                }
+
                 await _repository.DeleteDentalRecordAsync(id);
                 return NoContent();
             }
@@ -139,6 +148,110 @@ namespace Dental_clinic.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<IEnumerable<DentalRecordWithUserDto>>> GetDentalRecordsByUserId(int userId)
+        {
+            try
+            {
+                var dentalRecords = await _repository.GetDentalRecordsByUserIdAsync(userId);
+
+                if (dentalRecords == null || !dentalRecords.Any())
+                {
+                    return NotFound("Nema dentalnih kartona za ovog korisnika.");
+                }
+
+                var result = new List<DentalRecordWithUserDto>();
+
+                foreach (var record in dentalRecords)
+                {
+                    var patient = await _repository.GetPatientByIdAsync(record.PatientId ?? 0);
+
+                    if (patient != null)
+                    {
+                        result.Add(new DentalRecordWithUserDto
+                        {
+                            DentalRecordId = record.DentalRecordId,
+                            PatientEmail = patient.Email, 
+                            PatientFirstName = patient.FirstName, 
+                            PatientLastName = patient.LastName,  
+                            Number = record.Number,
+                            VisitDate = record.VisitDate,
+                            Examination = record.Examination,
+                            Recipe = record.Recipe,
+                            Addition = record.Addition,
+                            OrdinationId = record.OrdinationId,
+                            Visits = record.Visits.Select(v => new VisitDto
+                            {
+                                VisitDate = v.VisitDate,
+                                Examination = v.Examination,
+                                Recipe = v.Recipe,
+                                Addition = v.Addition
+                            }).ToList()
+                        });
+                    }
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("ordination/{ordinationId}")]
+        public async Task<ActionResult<IEnumerable<DentalRecordWithUserDto>>> GetDentalRecordsByOrdinationId(int ordinationId)
+        {
+            try
+            {
+                var dentalRecords = await _repository.GetDentalRecordsByOrdinationIdAsync(ordinationId);
+
+                if (dentalRecords == null || !dentalRecords.Any())
+                {
+                    return NotFound("Nema dentalnih kartona za ovu ordinaciju.");
+                }
+
+                var result = new List<DentalRecordWithUserDto>();
+
+                foreach (var record in dentalRecords)
+                {
+                    var patient = await _repository.GetPatientByIdAsync(record.PatientId ?? 0);
+
+                    if (patient != null)
+                    {
+                        result.Add(new DentalRecordWithUserDto
+                        {
+                            DentalRecordId = record.DentalRecordId,
+                            PatientEmail = patient.Email,
+                            PatientFirstName = patient.FirstName,
+                            PatientLastName = patient.LastName,
+                            Number = record.Number,
+                            VisitDate = record.VisitDate,
+                            Examination = record.Examination,
+                            Recipe = record.Recipe,
+                            Addition = record.Addition,
+                            OrdinationId = record.OrdinationId,
+                            Visits = record.Visits.Select(v => new VisitDto
+                            {
+                                VisitDate = v.VisitDate,
+                                Examination = v.Examination,
+                                Recipe = v.Recipe,
+                                Addition = v.Addition
+                            }).ToList()
+                        });
+                    }
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
     }
 }

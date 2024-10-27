@@ -15,7 +15,6 @@ namespace Dental_clinic.Data.Repositories;
             _ctx = ctx;
         }
 
-        // Dodavanje termina za određeni datum
         public async Task AddAppointmentsForDate(int ordinationId, DateTime date, List<(TimeSpan startTime, TimeSpan endTime)> timeSlots)
         {
             foreach (var slot in timeSlots)
@@ -35,12 +34,11 @@ namespace Dental_clinic.Data.Repositories;
             await _ctx.SaveChangesAsync();
         }
 
-    // Dohvati sve termine za određeni datum
     public async Task<List<Appointment>> GetAppointmentsByDate(int ordinationId, DateTime date)
     {
         return await _ctx.Appointments
                          .Where(a => a.OrdinationId == ordinationId && a.Date == date.Date && a.Available)
-                         .ToListAsync(); // Dohvata samo termine koji su dostupni
+                         .ToListAsync(); 
     }
 
     public async Task<List<Appointment>> GetAllAppointments(int ordinationId)
@@ -56,7 +54,6 @@ namespace Dental_clinic.Data.Repositories;
             .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
     }
 
-    // Osvježi dostupnost termina
     public async Task UpdateAppointmentAvailability(int appointmentId)
     {
             var appointment = await _ctx.Appointments.FindAsync(appointmentId);
@@ -94,4 +91,13 @@ namespace Dental_clinic.Data.Repositories;
         return await _ctx.Appointments.Where(a => appointmentIds.Contains(a.AppointmentId)).ToListAsync();
     }
 
+    public async Task UpdateAppointmentAvailability2(int appointmentId)
+    {
+        var appointment = await _ctx.Appointments.FindAsync(appointmentId);
+        if (appointment != null)
+        {
+            appointment.Available = true; // Postavi na slobodan
+            await _ctx.SaveChangesAsync(); // Sačuvaj promene
+        }
+    }
 }

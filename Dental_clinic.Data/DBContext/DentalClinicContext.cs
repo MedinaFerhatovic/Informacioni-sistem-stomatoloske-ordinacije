@@ -33,7 +33,6 @@ public class DentalClinicContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Konfiguracija tablice User
         modelBuilder.Entity<User>().ToTable("User");
         modelBuilder.Entity<Ordination>().ToTable("Ordination");
         modelBuilder.Entity<Location>().ToTable("Location");
@@ -47,7 +46,10 @@ public class DentalClinicContext : DbContext
             .HasForeignKey(v => v.DentalRecordId)
             .OnDelete(DeleteBehavior.Cascade)
             .HasConstraintName("FK_Visit_DentalRecord");
-
+        modelBuilder.Entity<Reservation>()
+       .HasOne(r => r.Appointment)
+       .WithMany() 
+       .HasForeignKey(r => r.AppointmentId);
 
         modelBuilder.Entity<Ordination>(entity =>
         {
@@ -57,6 +59,7 @@ public class DentalClinicContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Ordination_User");
         });
+
     }
 
 }
