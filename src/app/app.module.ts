@@ -11,6 +11,9 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 import { AdminComponent } from "./components/login/admin/admin.component";
 import { OrdinationComponent } from "./components/login/admin/ordination/ordination.component";
 import { OrdinationService } from "./services/ordination.service";
@@ -43,6 +46,9 @@ import { DentalRecordService } from "./services/dentalRecord.service";
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatCardModule,
+    MatSnackBarModule,
+    MatIconModule,
     HttpClientModule,
     AppRoutesModule,
     MatFormFieldModule,
