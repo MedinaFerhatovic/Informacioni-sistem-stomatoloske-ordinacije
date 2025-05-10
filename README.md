@@ -67,7 +67,7 @@ Ovaj projekt je napredni sistem za upravljanje stomatološkim ordinacijama koji 
 - Importujte bazu podataka u vaš MySQL server koristeći pristupne podatke:
 
   ```bash
-  server=localhost;port=3306;user=root;password=root;database=dental_clinic
+  server=vas_server;port=vas_port;user=vas_user;password=vas_password;database=dental_clinic
   ```
 
 - U ASP.NET projektu `Dental_clinic.API`, u fajlu `appsettings.json`, zamijenite pristupne podatke za bazu podataka vašim podacima.
