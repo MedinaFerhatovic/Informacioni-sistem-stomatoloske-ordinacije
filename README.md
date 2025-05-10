@@ -133,5 +133,5 @@ Dental_clinic/
 - [Angular Dokumentacija](https://angular.io/docs)
 - [React Native Dokumentacija](https://reactnative.dev/docs/getting-started)
 
-## 🤝 Autori
+## 🤝 Autor
 - Medina Ferhatović - [GitHub](https://github.com/MedinaFerhatovic)
